@@ -7,14 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Paleta pastel inspirada en moda
-        'moda-rose': '#F7D6E0',
-        'moda-lilac': '#E3D6F7',
-        'moda-mint': '#D6F7EC',
-        'moda-peach': '#F7E6D6',
-        'moda-sky': '#D6EAF7',
-        'moda-gray': '#F5F5F5',
-        'moda-dark': '#22223B',
+        'moda-rose': '#F8E8E8',
+        'moda-lilac': '#F0E6E6',
+        'moda-mint': '#F5EBEB',
+        'moda-peach': '#F2E2E2',
+        'moda-sky': '#F7E8E8',
+        'moda-gray': '#FAF7F7',
+        'moda-dark': '#4A3A3A',
+        'moda-pink': '#F4E4E4',
+        'moda-pink-dark': '#8B6B6B',
       },
       fontFamily: {
         'moda': ['"Montserrat"', '"Poppins"', 'sans-serif'],

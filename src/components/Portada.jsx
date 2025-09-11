@@ -8,10 +8,10 @@ const Portada = () => (
       <span className="text-6xl">📸</span>
     </div>
     <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-moda-dark mb-4">
-      Tu Nombre
+      Carolina
     </h1>
     <p className="text-2xl text-moda-dark/80 font-light">
-      Fotógrafa de Moda & Lifestyle
+      Creative Director
     </p>
     <div className="mt-8 animate-bounce">
       <div className="w-6 h-10 border-2 border-moda-dark/30 rounded-full flex justify-center">

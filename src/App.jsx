@@ -3,9 +3,9 @@ import Portada from './components/Portada';
 import Proyectos from './components/Proyectos';
 import ProyectoDetalle from './components/ProyectoDetalle';
 import Biografia from './components/Biografia';
-import Habilidades from './components/Habilidades';
 import Testimonios from './components/Testimonios';
 import Contacto from './components/Contacto';
+import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import projects from './projects';
 import './App.css';
@@ -36,7 +36,7 @@ const App = () => {
       
       <Portada />
       
-      <div ref={proyectosRef}>
+      <div ref={proyectosRef} data-section="proyectos">
         <Proyectos projects={projects} onSelectProject={scrollToProject} />
       </div>
       
@@ -49,16 +49,17 @@ const App = () => {
         />
       ))}
       
-      <div ref={biografiaRef}>
+      <div ref={biografiaRef} data-section="biografia">
         <Biografia />
       </div>
       
-      <Habilidades />
       <Testimonios />
       
-      <div ref={contactoRef}>
+      <div ref={contactoRef} data-section="contacto">
         <Contacto />
       </div>
+      
+      <Footer />
     </div>
   );
 };
