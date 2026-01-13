@@ -1,5 +1,5 @@
-// Biografia.jsx
 import React from "react";
+import Card from "./Card";
 
 const Biografia = () => (
   <section className="py-20 px-4 sm:px-6 lg:px-8">
@@ -26,7 +26,7 @@ const Biografia = () => (
 
         {/* Contenido */}
         <div className="order-1 lg:order-2 space-y-6">
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-moda-pink">
+          <Card className="bg-white/70 backdrop-blur-sm">
             <h3 className="text-2xl font-semibold text-moda-dark mb-4">Mi Historia</h3>
             <p className="text-lg text-moda-dark/80 leading-relaxed mb-6">
               Soy Carolina, una Creative Director apasionada por crear experiencias visuales únicas 
@@ -39,7 +39,7 @@ const Biografia = () => (
               creativas que no solo sean visualmente impactantes, sino que también generen 
               conexiones emocionales duraderas.
             </p>
-          </div>
+          </Card>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-moda-rose/30 rounded-xl p-6 text-center">
@@ -58,7 +58,7 @@ const Biografia = () => (
       <div className="mt-20">
         <h3 className="text-3xl font-bold text-center text-moda-dark mb-12">Lo que hago como Creative Director</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center border border-moda-pink hover:shadow-xl transition-shadow">
+          <Card variant="service">
             <div className="w-16 h-16 bg-moda-rose rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-2xl">🎯</span>
             </div>
@@ -66,9 +66,9 @@ const Biografia = () => (
             <p className="text-moda-dark/70">
               Desarrollo conceptos visuales que reflejan la identidad única de cada marca y conectan con su audiencia objetivo.
             </p>
-          </div>
+          </Card>
           
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center border border-moda-pink hover:shadow-xl transition-shadow">
+          <Card variant="service">
             <div className="w-16 h-16 bg-moda-peach rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-2xl">📸</span>
             </div>
@@ -76,9 +76,9 @@ const Biografia = () => (
             <p className="text-moda-dark/70">
               Superviso cada aspecto visual, desde la fotografía hasta el diseño, asegurando coherencia y excelencia en cada detalle.
             </p>
-          </div>
+          </Card>
           
-          <div className="bg-white rounded-2xl p-8 shadow-lg text-center border border-moda-pink hover:shadow-xl transition-shadow">
+          <Card variant="service">
             <div className="w-16 h-16 bg-moda-lilac rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-2xl">🚀</span>
             </div>
@@ -86,7 +86,7 @@ const Biografia = () => (
             <p className="text-moda-dark/70">
               Implemento tendencias emergentes y técnicas creativas para mantener a las marcas a la vanguardia del diseño.
             </p>
-          </div>
+          </Card>
         </div>
       </div>
     </div>
