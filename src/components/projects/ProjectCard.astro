@@ -1,0 +1,56 @@
+---
+// components/projects/ProjectCard.astro - Tarjeta de proyecto elegante
+interface Props {
+  project: {
+    id: number;
+    title: string;
+    category: string;
+    cover: string;
+    description: string;
+  };
+  featured?: boolean;
+  class?: string;
+}
+
+const { project, featured = false, class: className } = Astro.props;
+---
+
+<article 
+  data-category={project.category}
+  class={`group relative overflow-hidden bg-moda-sand/30 hover:bg-moda-sand transition-all duration-500 ${className}`}
+>
+  <!-- Imagen -->
+  <div class={`relative overflow-hidden ${featured ? 'aspect-[4/3]' : 'aspect-square'}`}>
+    <img 
+      src={project.cover} 
+      alt={project.title}
+      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      loading="lazy"
+    />
+    
+    <!-- Overlay con información -->
+    <div class="absolute inset-0 bg-gradient-to-t from-moda-charcoal/90 via-moda-charcoal/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+      <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+        <p class="subtitle text-moda-accent mb-2">{project.category}</p>
+        <h3 class="font-serif text-2xl md:text-3xl text-moda-cream mb-3">
+          {project.title}
+        </h3>
+        <p class="text-moda-sand text-sm leading-relaxed mb-4 line-clamp-2">
+          {project.description}
+        </p>
+        <a href={`#proyecto-${project.id}`} class="subtitle text-moda-cream hover:text-moda-accent transition-colors inline-flex items-center gap-2">
+          Ver Proyecto
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info visible (para móvil) -->
+  <div class="p-6 md:hidden">
+    <p class="subtitle text-moda-taupe mb-2">{project.category}</p>
+    <h3 class="font-serif text-xl text-moda-charcoal">{project.title}</h3>
+  </div>
+</article>

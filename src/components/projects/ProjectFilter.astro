@@ -1,0 +1,27 @@
+---
+// components/projects/ProjectFilter.astro - Filtro de proyectos
+const categories = [
+  { id: 'todos', label: 'Todos' },
+  { id: 'editoriales', label: 'Editoriales' },
+  { id: 'marcas', label: 'Marcas' },
+  { id: 'test', label: 'Test' },
+  { id: 'artistas', label: 'Artistas' }
+];
+---
+
+<div class="flex flex-wrap gap-3 mb-12">
+  {categories.map((cat, index) => (
+    <button 
+      data-filter={cat.id}
+      class={`subtitle px-6 py-2 border border-moda-stone transition-all duration-300 hover:border-moda-charcoal hover:bg-moda-charcoal hover:text-moda-cream ${index === 0 ? 'active bg-moda-charcoal text-moda-cream border-moda-charcoal' : ''}`}
+    >
+      {cat.label}
+    </button>
+  ))}
+</div>
+
+<style>
+  button.active {
+    @apply bg-moda-charcoal text-moda-cream border-moda-charcoal;
+  }
+</style>

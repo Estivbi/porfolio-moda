@@ -1,32 +1,52 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
   ],
   theme: {
     extend: {
       colors: {
-        'moda-rose': '#F8E8E8',
-        'moda-lilac': '#F0E6E6',
-        'moda-mint': '#F5EBEB',
-        'moda-peach': '#F2E2E2',
-        'moda-sky': '#F7E8E8',
-        'moda-gray': '#FAF7F7',
-        'moda-dark': '#4A3A3A',
-        'moda-pink': '#F4E4E4',
-        'moda-pink-dark': '#8B6B6B',
+        // Paleta minimalista y elegante para moda
+        'moda': {
+          'cream': '#FAF9F6',      // Blanco roto elegante
+          'sand': '#E8E4DF',       // Arena suave
+          'stone': '#D4CFC9',      // Piedra cálida
+          'taupe': '#9B8E82',      // Taupe sofisticado
+          'charcoal': '#2D2926',   // Carbón profundo
+          'accent': '#C9A690',     // Acento dorado suave
+        }
       },
       fontFamily: {
-        'moda': ['"Montserrat"', '"Poppins"', 'sans-serif'],
+        // Tipografía elegante para moda
+        'serif': ['"Playfair Display"', '"Cormorant Garamond"', 'serif'],
+        'sans': ['"Inter"', '"Helvetica Neue"', 'sans-serif'],
+        'display': ['"Bodoni Moda"', '"Didot"', 'serif'],
+      },
+      fontSize: {
+        'display': ['4.5rem', { lineHeight: '1', letterSpacing: '-0.02em' }],
+        'hero': ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.01em' }],
+      },
+      spacing: {
+        '128': '32rem',
+        '144': '36rem',
       },
       animation: {
-        'fadeIn': 'fadeIn 0.5s ease',
+        'fade-in': 'fadeIn 0.8s ease-out',
+        'slide-up': 'slideUp 0.6s ease-out',
+        'slide-in': 'slideIn 0.8s ease-out',
       },
       keyframes: {
         fadeIn: {
-          'from': { opacity: '0', transform: 'translateY(20px)' },
-          'to': { opacity: '1', transform: 'translateY(0)' },
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        slideIn: {
+          '0%': { opacity: '0', transform: 'translateX(-20px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
         },
       },
     },

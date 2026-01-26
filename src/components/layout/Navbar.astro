@@ -1,0 +1,81 @@
+---
+// components/layout/Navbar.astro - Navegación minimalista
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-moda-cream/80 backdrop-blur-md border-b border-moda-sand transition-all duration-300">
+  <div class="container-moda">
+    <div class="flex items-center justify-between py-6">
+      <!-- Logo/Nombre -->
+      <a href="#inicio" class="font-serif text-2xl font-light tracking-tight hover:text-moda-taupe transition-colors">
+        Patricia
+      </a>
+
+      <!-- Navegación -->
+      <ul class="hidden md:flex items-center space-x-12">
+        <li>
+          <a href="#proyectos" class="subtitle hover:text-moda-charcoal transition-colors">
+            Proyectos
+          </a>
+        </li>
+        <li>
+          <a href="#sobre-mi" class="subtitle hover:text-moda-charcoal transition-colors">
+            Sobre Mí
+          </a>
+        </li>
+        <li>
+          <a href="#contacto" class="subtitle hover:text-moda-charcoal transition-colors">
+            Contacto
+          </a>
+        </li>
+      </ul>
+
+      <!-- Menú móvil -->
+      <button id="menu-toggle" class="md:hidden p-2" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú móvil desplegable -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-moda-sand">
+    <div class="container-moda py-6">
+      <ul class="space-y-4">
+        <li>
+          <a href="#proyectos" class="subtitle block hover:text-moda-charcoal transition-colors">
+            Proyectos
+          </a>
+        </li>
+        <li>
+          <a href="#sobre-mi" class="subtitle block hover:text-moda-charcoal transition-colors">
+            Sobre Mí
+          </a>
+        </li>
+        <li>
+          <a href="#contacto" class="subtitle block hover:text-moda-charcoal transition-colors">
+            Contacto
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Toggle menú móvil
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  menuToggle?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // Cerrar menú al hacer clic en un enlace
+  const mobileLinks = mobileMenu?.querySelectorAll('a');
+  mobileLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+</script>

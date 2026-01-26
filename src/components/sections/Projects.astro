@@ -1,0 +1,65 @@
+---
+// components/sections/Projects.astro - Sección de proyectos con grid asimétrico
+import projects from '../../data/projects.js';
+import ProjectCard from '../projects/ProjectCard.astro';
+import ProjectFilter from '../projects/ProjectFilter.astro';
+---
+
+<section id="proyectos" class="section-padding bg-moda-cream">
+  <div class="container-moda">
+    <!-- Encabezado -->
+    <div class="max-w-3xl mb-16">
+      <p class="subtitle mb-4">Portfolio</p>
+      <h2 class="title-display mb-6">
+        Proyectos Seleccionados
+      </h2>
+      <p class="text-lg text-moda-taupe leading-relaxed">
+        Una colección de trabajos que reflejan mi visión creativa en dirección de arte,
+        styling y fotografía de moda.
+      </p>
+    </div>
+
+    <!-- Filtro -->
+    <ProjectFilter />
+
+    <!-- Grid de proyectos - Layout asimétrico elegante -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" id="projects-grid">
+      {projects.map((project, index) => (
+        <ProjectCard 
+          project={project} 
+          featured={index === 0}
+          class={index === 0 ? 'md:col-span-2 md:row-span-2' : ''}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Filtrado de proyectos (se activará con los botones del filtro)
+  document.addEventListener('astro:page-load', () => {
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    const projectCards = document.querySelectorAll('[data-category]');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        
+        // Actualizar botones activos
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // Filtrar proyectos
+        projectCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          if (filter === 'todos' || category === filter) {
+            card.classList.remove('hidden');
+            card.classList.add('fade-in');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>

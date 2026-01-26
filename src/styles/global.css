@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fuentes Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    @apply bg-moda-cream;
+  }
+
+  body {
+    @apply antialiased text-moda-charcoal font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+
+  section {
+    scroll-margin-top: 100px;
+  }
+}
+
+@layer components {
+  /* Contenedor principal con márgenes elegantes */
+  .container-moda {
+    @apply max-w-7xl mx-auto px-6 md:px-12 lg:px-16;
+  }
+
+  /* Título display elegante */
+  .title-display {
+    @apply font-serif text-5xl md:text-6xl lg:text-7xl font-light tracking-tight;
+  }
+
+  /* Subtítulo con espaciado */
+  .subtitle {
+    @apply font-sans text-sm md:text-base uppercase tracking-[0.2em] text-moda-taupe;
+  }
+
+  /* Botón elegante */
+  .btn-moda {
+    @apply inline-block px-8 py-3 border border-moda-charcoal text-moda-charcoal
+           hover:bg-moda-charcoal hover:text-moda-cream transition-all duration-300
+           font-sans text-sm tracking-wider uppercase;
+  }
+
+  /* Línea divisoria elegante */
+  .divider-moda {
+    @apply h-px bg-gradient-to-r from-transparent via-moda-stone to-transparent;
+  }
+}
+
+@layer utilities {
+  /* Espaciado minimalista */
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Grid asimétrico para moda */
+  .grid-moda {
+    @apply grid gap-8 md:gap-12;
+  }
+
+  /* Efecto de imagen hover elegante */
+  .image-hover-effect {
+    @apply overflow-hidden;
+  }
+
+  .image-hover-effect img {
+    @apply transition-transform duration-700 ease-out;
+  }
+
+  .image-hover-effect:hover img {
+    @apply scale-105;
+  }
+
+  /* Texto con balance */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Animaciones sutiles */
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+}
+
+/* Animaciones personalizadas */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar personalizado minimalista */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-moda-cream;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-moda-stone rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-moda-taupe;
+}
+
+/* Selección de texto elegante */
+::selection {
+  @apply bg-moda-accent text-moda-cream;
+}
+

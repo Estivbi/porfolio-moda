@@ -1,0 +1,63 @@
+---
+import "@/styles/starwind.css";
+// Layout.astro - Layout principal de Astro
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Patricia - Creative Director & Fashion Stylist",
+  description = "Portafolio de Patricia, Creative Director especializada en moda y diseño visual. Descubre mis proyectos, mi historia y mi visión creativa."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="author" content="Patricia" />
+    <meta name="keywords" content="creative director, stylist, moda, fashion, diseño, fotografía, editorial, styling" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <style is:global>
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      body {
+        font-family: 'Montserrat', 'Poppins', sans-serif;
+      }
+
+      /* Smooth scroll for sections */
+      section {
+        scroll-margin-top: 100px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-moda-gray font-moda antialiased">
+    <slot />
+  </body>
+</html>
