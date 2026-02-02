@@ -13,7 +13,10 @@ const categories = [
   {categories.map((cat, index) => (
     <button 
       data-filter={cat.id}
-      class={`subtitle px-6 py-2 border border-moda-stone transition-all duration-300 hover:border-moda-charcoal hover:bg-moda-charcoal hover:text-moda-cream ${index === 0 ? 'active bg-moda-charcoal text-moda-cream border-moda-charcoal' : ''}`}
+      class={`subtitle px-6 py-2 border transition-all duration-300 ${index === 0 ? 'active' : ''}`}
+      style={`
+        border-color: var(--moda-stone);
+      `}
     >
       {cat.label}
     </button>
@@ -21,7 +24,19 @@ const categories = [
 </div>
 
 <style>
+  button {
+    color: var(--moda-charcoal);
+  }
+
+  button:hover {
+    border-color: var(--moda-charcoal);
+    background-color: var(--moda-charcoal);
+    color: var(--moda-cream);
+  }
+
   button.active {
-    @apply bg-moda-charcoal text-moda-cream border-moda-charcoal;
+    background-color: var(--moda-charcoal);
+    color: var(--moda-cream);
+    border-color: var(--moda-charcoal);
   }
 </style>

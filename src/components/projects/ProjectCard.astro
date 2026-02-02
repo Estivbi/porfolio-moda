@@ -1,5 +1,7 @@
 ---
-// components/projects/ProjectCard.astro - Tarjeta de proyecto elegante
+import Card  from '../ui/starwind/card/Card.astro';
+import Badge from '../ui//starwind/badge/Badge.astro';
+
 interface Props {
   project: {
     id: number;
@@ -15,9 +17,10 @@ interface Props {
 const { project, featured = false, class: className } = Astro.props;
 ---
 
-<article 
+<Card 
+  variant="ghost"
   data-category={project.category}
-  class={`group relative overflow-hidden bg-moda-sand/30 hover:bg-moda-sand transition-all duration-500 ${className}`}
+  class={`group relative overflow-hidden transition-all duration-500 ${className}`}
 >
   <!-- Imagen -->
   <div class={`relative overflow-hidden ${featured ? 'aspect-[4/3]' : 'aspect-square'}`}>
@@ -31,7 +34,9 @@ const { project, featured = false, class: className } = Astro.props;
     <!-- Overlay con información -->
     <div class="absolute inset-0 bg-gradient-to-t from-moda-charcoal/90 via-moda-charcoal/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
       <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-        <p class="subtitle text-moda-accent mb-2">{project.category}</p>
+        <Badge variant="secondary" class="mb-2 bg-moda-accent text-moda-charcoal">
+          {project.category}
+        </Badge>
         <h3 class="font-serif text-2xl md:text-3xl text-moda-cream mb-3">
           {project.title}
         </h3>
@@ -50,7 +55,9 @@ const { project, featured = false, class: className } = Astro.props;
 
   <!-- Info visible (para móvil) -->
   <div class="p-6 md:hidden">
-    <p class="subtitle text-moda-taupe mb-2">{project.category}</p>
+    <Badge variant="outline" class="mb-2 border-moda-taupe text-moda-taupe">
+      {project.category}
+    </Badge>
     <h3 class="font-serif text-xl text-moda-charcoal">{project.title}</h3>
   </div>
-</article>
+</Card>

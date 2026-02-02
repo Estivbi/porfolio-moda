@@ -1,0 +1,54 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { tv, type VariantProps } from "tailwind-variants";
+
+interface Props
+  extends HTMLAttributes<"div">, Omit<HTMLAttributes<"a">, "type">, VariantProps<typeof badge> {}
+
+export const badge = tv({
+  base: [
+    "starwind-badge inline-flex items-center gap-1.5 rounded-full font-medium whitespace-nowrap",
+    "[&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "transition-all outline-none focus-visible:ring-2",
+  ],
+  variants: {
+    variant: {
+      default: "bg-moda-charcoal text-moda-cream focus-visible:ring-moda-accent/50",
+      primary: "bg-moda-accent text-moda-charcoal focus-visible:ring-moda-accent/50",
+      secondary: "bg-moda-accent text-moda-charcoal focus-visible:ring-moda-accent/50",
+      outline: "border border-moda-taupe text-moda-charcoal focus-visible:ring-moda-accent/50",
+      ghost: "bg-moda-taupe/20 text-moda-charcoal focus-visible:ring-moda-accent/50",
+      info: "bg-moda-sand text-moda-charcoal focus-visible:ring-moda-accent/50",
+      success: "bg-moda-accent text-moda-charcoal focus-visible:ring-moda-accent/50",
+      warning: "bg-moda-sand text-moda-charcoal focus-visible:ring-moda-accent/50",
+      error: "bg-moda-charcoal text-moda-cream focus-visible:ring-moda-accent/50",
+    },
+    size: {
+      sm: "px-2.5 py-0.5 text-xs [&_svg:not([class*='size-'])]:size-3",
+      md: "px-3 py-0.5 text-sm [&_svg:not([class*='size-'])]:size-4",
+      lg: "px-4 py-1 text-base [&_svg:not([class*='size-'])]:size-4.5",
+    },
+    isLink: { true: "cursor-pointer", false: "" },
+  },
+  compoundVariants: [
+    { isLink: true, variant: "default", className: "hover:bg-moda-charcoal/80" },
+    { isLink: true, variant: "primary", className: "hover:bg-moda-accent/80" },
+    { isLink: true, variant: "secondary", className: "hover:bg-moda-accent/80" },
+    { isLink: true, variant: "outline", className: "hover:border-moda-taupe/80" },
+    { isLink: true, variant: "ghost", className: "hover:bg-moda-taupe/30" },
+    { isLink: true, variant: "info", className: "hover:bg-moda-sand/80" },
+    { isLink: true, variant: "success", className: "hover:bg-moda-accent/80" },
+    { isLink: true, variant: "warning", className: "hover:bg-moda-sand/80" },
+    { isLink: true, variant: "error", className: "hover:bg-moda-charcoal/80" },
+  ],
+  defaultVariants: { variant: "default", size: "md", isLink: false },
+});
+
+const { variant, size, class: className, ...rest } = Astro.props;
+const isLink = Astro.props.href ? true : false;
+const Tag = Astro.props.href ? "a" : "div";
+---
+
+<Tag class={badge({ variant, size, isLink, class: className })} data-slot="badge" {...rest}>
+  <slot />
+</Tag>

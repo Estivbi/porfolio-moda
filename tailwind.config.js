@@ -6,14 +6,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Paleta minimalista y elegante para moda
+        // Colores usando CSS variables definidas en starwind.css
         'moda': {
-          'cream': '#FAF9F6',      // Blanco roto elegante
-          'sand': '#E8E4DF',       // Arena suave
-          'stone': '#D4CFC9',      // Piedra cálida
-          'taupe': '#9B8E82',      // Taupe sofisticado
-          'charcoal': '#2D2926',   // Carbón profundo
-          'accent': '#C9A690',     // Acento dorado suave
+          'cream': 'var(--moda-cream)',
+          'sand': 'var(--moda-sand)',
+          'stone': 'var(--moda-stone)',
+          'taupe': 'var(--moda-taupe)',
+          'charcoal': 'var(--moda-charcoal)',
+          'accent': 'var(--moda-accent)',
         }
       },
       fontFamily: {

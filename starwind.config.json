@@ -5,6 +5,15 @@
     "baseColor": "neutral",
     "cssVariables": true
   },
-  "componentDir": "src/components",
-  "components": []
+  "componentDir": "src/components/ui",
+  "components": [
+    {
+      "name": "card",
+      "version": "2.0.0"
+    },
+    {
+      "name": "badge",
+      "version": "1.4.0"
+    }
+  ]
 }

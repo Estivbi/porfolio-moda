@@ -1,0 +1,42 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { tv, type VariantProps } from "tailwind-variants";
+
+type Props = HTMLAttributes<"div"> & VariantProps<typeof card>;
+
+export const card = tv({
+  base: [
+    "bg-moda-cream text-moda-charcoal flex flex-col rounded-lg transition-all duration-500",
+    "has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0",
+    "*:[img:first-child]:rounded-t-lg *:[img:last-child]:rounded-b-lg",
+  ],
+  variants: {
+    size: {
+      default: "gap-0 p-0",
+      sm: "gap-4 p-4 text-sm",
+      lg: "gap-6 p-6",
+    },
+    variant: {
+      default: "bg-moda-cream border border-moda-taupe/20 hover:border-moda-accent/40",
+      dark: "bg-moda-charcoal text-moda-cream border border-moda-taupe/40",
+      ghost: "bg-transparent border-0",
+    },
+  },
+  defaultVariants: {
+    size: "default",
+    variant: "default",
+  },
+});
+
+const { class: className, size, variant, ...rest } = Astro.props;
+---
+
+<div
+  class={card({ size, variant, class: className })}
+  data-slot="card"
+  data-size={size ?? "default"}
+  data-variant={variant ?? "default"}
+  {...rest}
+>
+  <slot />
+</div>

@@ -1,12 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Fuentes Google Fonts - DEBE estar al inicio */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
 
+@import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/forms";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+  /* Colores personalizados para moda */
+  --color-moda-cream: #FAF9F6;
+  --color-moda-sand: #E8E4DF;
+  --color-moda-stone: #D4CFC9;
+  --color-moda-taupe: #9B8E82;
+  --color-moda-charcoal: #2D2926;
+  --color-moda-accent: #C9A690;
+
+  /* Fuentes personalizadas */
+  --font-serif: "Playfair Display", "Cormorant Garamond", serif;
+  --font-sans: "Inter", "Helvetica Neue", sans-serif;
+  --font-display: "Bodoni Moda", "Didot", serif;
+
+  /* Animaciones */
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
@@ -27,6 +41,64 @@
       height: 0;
     }
   }
+}
+
+@layer base {
+  :root {
+    /* Colores personalizados para moda como variables CSS */
+    --moda-cream: #FAF9F6;
+    --moda-sand: #E8E4DF;
+    --moda-stone: #D4CFC9;
+    --moda-taupe: #9B8E82;
+    --moda-charcoal: #2D2926;
+    --moda-accent: #C9A690;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--moda-cream);
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    color: var(--moda-charcoal);
+    font-family: "Inter", "Helvetica Neue", sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Playfair Display", "Cormorant Garamond", serif;
+  }
+
+  section {
+    scroll-margin-top: 100px;
+  }
+}
+
+@layer components {
+  /* Contenedor principal con márgenes elegantes */
+  .container-moda {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-moda {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-moda {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+
+  /* Componentes Starwind */
 }
 
 @theme inline {
