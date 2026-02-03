@@ -6,9 +6,9 @@ type Props = HTMLAttributes<"div"> & VariantProps<typeof card>;
 
 export const card = tv({
   base: [
-    "bg-moda-cream text-moda-charcoal flex flex-col rounded-lg transition-all duration-500",
+    "bg-white text-black flex flex-col rounded-none transition-all duration-500",
     "has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0",
-    "*:[img:first-child]:rounded-t-lg *:[img:last-child]:rounded-b-lg",
+    "*:[img:first-child]:rounded-none *:[img:last-child]:rounded-none",
   ],
   variants: {
     size: {
@@ -17,8 +17,8 @@ export const card = tv({
       lg: "gap-6 p-6",
     },
     variant: {
-      default: "bg-moda-cream border border-moda-taupe/20 hover:border-moda-accent/40",
-      dark: "bg-moda-charcoal text-moda-cream border border-moda-taupe/40",
+      default: "bg-white border border-gray-light hover:border-gray-med",
+      dark: "bg-black text-white border border-gray-dark",
       ghost: "bg-transparent border-0",
     },
   },

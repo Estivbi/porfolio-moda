@@ -7,13 +7,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Colores personalizados para moda */
-  --color-moda-cream: #FAF9F6;
-  --color-moda-sand: #E8E4DF;
-  --color-moda-stone: #D4CFC9;
-  --color-moda-taupe: #9B8E82;
-  --color-moda-charcoal: #2D2926;
-  --color-moda-accent: #C9A690;
+  /* Paleta minimalista blanco/negro */
+  --color-white: #FFFFFF;
+  --color-cream: #FFFFFF;
+  --color-gray-light: #F5F5F5;
+  --color-gray-med: #E8E8E8;
+  --color-gray-dark: #808080;
+  --color-black: #000000;
+  --color-accent: #333333;
 
   /* Fuentes personalizadas */
   --font-serif: "Playfair Display", "Cormorant Garamond", serif;
@@ -45,24 +46,27 @@
 
 @layer base {
   :root {
-    /* Colores personalizados para moda como variables CSS */
-    --moda-cream: #FAF9F6;
-    --moda-sand: #E8E4DF;
-    --moda-stone: #D4CFC9;
-    --moda-taupe: #9B8E82;
-    --moda-charcoal: #2D2926;
-    --moda-accent: #C9A690;
+    /* Paleta minimalista */
+    --color-white: #FFFFFF;
+    --color-cream: #F9F9F9;
+    --color-gray-light: #E8E8E8;
+    --color-gray-med: #CCCCCC;
+    --color-gray-dark: #666666;
+    --color-black: #1A1A1A;
+    --color-accent: #000000;
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--moda-cream);
+    background-color: var(--color-white);
   }
 
   body {
     -webkit-font-smoothing: antialiased;
-    color: var(--moda-charcoal);
+    color: var(--color-black);
     font-family: "Inter", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {

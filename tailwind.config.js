@@ -6,15 +6,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Colores usando CSS variables definidas en starwind.css
-        'moda': {
-          'cream': 'var(--moda-cream)',
-          'sand': 'var(--moda-sand)',
-          'stone': 'var(--moda-stone)',
-          'taupe': 'var(--moda-taupe)',
-          'charcoal': 'var(--moda-charcoal)',
-          'accent': 'var(--moda-accent)',
-        }
+        // Paleta minimalista
+        'white': 'var(--color-white)',
+        'cream': 'var(--color-cream)',
+        'gray-light': 'var(--color-gray-light)',
+        'gray-med': 'var(--color-gray-med)',
+        'gray-dark': 'var(--color-gray-dark)',
+        'black': 'var(--color-black)',
+        'accent': 'var(--color-accent)',
       },
       fontFamily: {
         // Tipografía elegante para moda

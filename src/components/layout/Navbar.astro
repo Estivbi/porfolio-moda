@@ -2,35 +2,40 @@
 // components/layout/Navbar.astro - Navegación minimalista
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-moda-cream/80 backdrop-blur-md border-b border-moda-sand transition-all duration-300">
-  <div class="container-moda">
+<nav style="background-color: rgba(255, 255, 255, 0.95);" class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300" style="border-color: #E8E8E8;">
+  <div class="container-moda px-6 md:px-12">
     <div class="flex items-center justify-between py-6">
       <!-- Logo/Nombre -->
-      <a href="#inicio" class="font-serif text-2xl font-light tracking-tight hover:text-moda-taupe transition-colors">
+      <a href="#inicio" class="font-serif text-2xl font-light tracking-tight" style="color: #000000;">
         Patricia
       </a>
 
       <!-- Navegación -->
       <ul class="hidden md:flex items-center space-x-12">
         <li>
-          <a href="#proyectos" class="subtitle hover:text-moda-charcoal transition-colors">
+          <a href="#presentacion" class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
+            Presentación
+          </a>
+        </li>
+        <li>
+          <a href="#educacion" class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
+            Educación
+          </a>
+        </li>
+        <li>
+          <a href="#habilidades" class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
+            Habilidades
+          </a>
+        </li>
+        <li>
+          <a href="#proyectos" class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
             Proyectos
-          </a>
-        </li>
-        <li>
-          <a href="#sobre-mi" class="subtitle hover:text-moda-charcoal transition-colors">
-            Sobre Mí
-          </a>
-        </li>
-        <li>
-          <a href="#contacto" class="subtitle hover:text-moda-charcoal transition-colors">
-            Contacto
           </a>
         </li>
       </ul>
 
       <!-- Menú móvil -->
-      <button id="menu-toggle" class="md:hidden p-2" aria-label="Toggle menu">
+      <button id="menu-toggle" class="md:hidden p-2" aria-label="Toggle menu" style="color: #000000;">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -39,22 +44,27 @@
   </div>
 
   <!-- Menú móvil desplegable -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-moda-sand">
-    <div class="container-moda py-6">
+  <div id="mobile-menu" style="background-color: #FFFFFF; border-color: #E8E8E8;" class="hidden md:hidden border-t">
+    <div class="container-moda px-6 md:px-12 py-6">
       <ul class="space-y-4">
         <li>
-          <a href="#proyectos" class="subtitle block hover:text-moda-charcoal transition-colors">
+          <a href="#presentacion" class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
+            Presentación
+          </a>
+        </li>
+        <li>
+          <a href="#educacion" class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
+            Educación
+          </a>
+        </li>
+        <li>
+          <a href="#habilidades" class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
+            Habilidades
+          </a>
+        </li>
+        <li>
+          <a href="#proyectos" class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
             Proyectos
-          </a>
-        </li>
-        <li>
-          <a href="#sobre-mi" class="subtitle block hover:text-moda-charcoal transition-colors">
-            Sobre Mí
-          </a>
-        </li>
-        <li>
-          <a href="#contacto" class="subtitle block hover:text-moda-charcoal transition-colors">
-            Contacto
           </a>
         </li>
       </ul>

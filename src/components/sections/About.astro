@@ -1,109 +1,77 @@
 ---
-// components/sections/About.astro - Sección sobre mí
+// components/sections/About.astro - Sección educación y habilidades
 ---
 
-<section id="sobre-mi" class="section-padding bg-white">
-  <div class="container-moda">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
-      <!-- Imagen -->
-      <div class="order-2 lg:order-1">
-        <div class="relative">
-          <div class="aspect-[3/4] bg-moda-sand image-hover-effect">
-            <img 
-              src="/vite.svg" 
-              alt="Patricia" 
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <!-- Elemento decorativo -->
-          <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-moda-accent/20 -z-10"></div>
-        </div>
-      </div>
-
-      <!-- Contenido -->
-      <div class="order-1 lg:order-2">
-        <p class="subtitle mb-4">Sobre Mí</p>
-        <h2 class="font-serif text-4xl md:text-5xl font-light mb-8 leading-tight">
-          Creando historias visuales que inspiran
+<section id="educacion" style="background-color: #FFFFFF;" class="py-20 md:py-32">
+  <div class="container-moda px-6 md:px-12 max-w-4xl mx-auto">
+    <!-- Educación -->
+    <div class="mb-24">
+      <div class="max-w-4xl">
+        <p class="text-xs uppercase tracking-widest mb-6" style="color: #808080; letter-spacing: 0.1em;">Educación</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-light mb-12 leading-tight" style="color: #000000;">
+          Formación
         </h2>
         
-        <div class="space-y-6 text-moda-taupe leading-relaxed">
+        <div class="space-y-8" style="color: #808080; line-height: 1.8; font-size: 1.05rem; text-align: justify;">
           <p>
-            Soy <strong class="text-moda-charcoal">Patricia</strong>, Creative Director con más de 5 años 
-            de experiencia en la industria de la moda. Mi enfoque combina estética contemporánea 
-            con narrativas auténticas que conectan emocionalmente con las audiencias.
+            Actualmente estudio <strong style="color: #000000;">Estilismo y Asesoría de Imagen</strong> en el IES Santa Engracia, una formación que me ha permitido adquirir una base sólida tanto teórica como práctica dentro del sector de la moda y la imagen.
           </p>
           
           <p>
-            Especializada en dirección de arte, styling y fotografía de moda, trabajo con marcas 
-            que buscan elevar su presencia visual y crear experiencias memorables.
+            A lo largo de mis estudios he trabajado en el desarrollo de conceptos creativos, análisis de tendencias, construcción de estilismos y dirección estética, aplicando estos conocimientos en proyectos reales y ejercicios creativos. Esta formación me ha ayudado a entender la imagen como una herramienta de comunicación, reforzando mi capacidad para crear narrativas visuales coherentes y alineadas con una identidad concreta.
           </p>
-
-          <p>
-            Creo firmemente que cada proyecto es una oportunidad para contar una historia única 
-            y construir una identidad visual coherente que resuene con la esencia de la marca.
-          </p>
-        </div>
-
-        <!-- Estadísticas -->
-        <div class="grid grid-cols-2 gap-8 mt-12 pt-12 border-t border-moda-stone">
-          <div>
-            <div class="font-serif text-4xl md:text-5xl text-moda-charcoal mb-2">50+</div>
-            <div class="subtitle">Proyectos Completados</div>
-          </div>
-          <div>
-            <div class="font-serif text-4xl md:text-5xl text-moda-charcoal mb-2">5+</div>
-            <div class="subtitle">Años de Experiencia</div>
-          </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="mt-12">
-          <a href="#contacto" class="btn-moda">
-            Trabajemos Juntos
-          </a>
         </div>
       </div>
     </div>
 
-    <!-- Servicios -->
-    <div class="mt-24 pt-24 border-t border-moda-stone">
-      <div class="max-w-3xl mb-16">
-        <p class="subtitle mb-4">Servicios</p>
-        <h3 class="font-serif text-3xl md:text-4xl font-light">
-          Lo que hago
-        </h3>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-12">
-        <div class="group">
-          <div class="w-16 h-16 border border-moda-stone flex items-center justify-center mb-6 group-hover:border-moda-charcoal group-hover:bg-moda-charcoal transition-all duration-300">
-            <span class="text-2xl group-hover:grayscale-0 transition-all">🎯</span>
+    <!-- Habilidades -->
+    <div id="habilidades" style="border-top: 1px solid #E8E8E8; padding-top: 32px;">
+      <div class="max-w-4xl">
+        <p class="text-xs uppercase tracking-widest mb-6" style="color: #808080; letter-spacing: 0.1em;">Habilidades</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-light mb-12 leading-tight" style="color: #000000;">
+          Competencias Profesionales
+        </h2>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h4 class="font-serif text-lg mb-4" style="color: #000000;">Creación & Dirección</h4>
+            <ul class="space-y-3" style="color: #808080; line-height: 1.8;">
+              <li>• Desarrollo de conceptos creativos y storytelling visual</li>
+              <li>• Análisis de tendencias y referencias culturales</li>
+              <li>• Dirección creativa aplicada a moda y proyectos editoriales</li>
+              <li>• Construcción de identidad visual y narrativas coherentes</li>
+            </ul>
           </div>
-          <h4 class="font-serif text-xl mb-3">Dirección Creativa</h4>
-          <p class="text-moda-taupe leading-relaxed">
-            Desarrollo de conceptos visuales y estrategias creativas que capturan la esencia de tu marca.
-          </p>
-        </div>
-
-        <div class="group">
-          <div class="w-16 h-16 border border-moda-stone flex items-center justify-center mb-6 group-hover:border-moda-charcoal group-hover:bg-moda-charcoal transition-all duration-300">
-            <span class="text-2xl group-hover:grayscale-0 transition-all">📸</span>
+          
+          <div>
+            <h4 class="font-serif text-lg mb-4" style="color: #000000;">Styling & Asesoría</h4>
+            <ul class="space-y-3" style="color: #808080; line-height: 1.8;">
+              <li>• Creación y planificación de estilismos</li>
+              <li>• Asesoría de imagen y construcción de looks</li>
+              <li>• Selección de vestuario, accesorios y paletas cromáticas</li>
+              <li>• Coordinación de looks para shootings y campañas</li>
+            </ul>
           </div>
-          <h4 class="font-serif text-xl mb-3">Fashion Styling</h4>
-          <p class="text-moda-taupe leading-relaxed">
-            Creación de looks y dirección de estilo para editoriales, campañas y producciones fotográficas.
-          </p>
-        </div>
 
-        <div class="group">
-          <div class="w-16 h-16 border border-moda-stone flex items-center justify-center mb-6 group-hover:border-moda-charcoal group-hover:bg-moda-charcoal transition-all duration-300">
-            <span class="text-2xl group-hover:grayscale-0 transition-all">✨</span>
+          <div>
+            <h4 class="font-serif text-lg mb-4" style="color: #000000;">Producción & Gestión</h4>
+            <ul class="space-y-3" style="color: #808080; line-height: 1.8;">
+              <li>• Organización y preparación de sesiones fotográficas</li>
+              <li>• Trabajo con artistas, modelos y equipos creativos</li>
+              <li>• Coordinación de proyectos editoriales e independientes</li>
+              <li>• Capacidad de adaptación a distintos estilos y briefs creativos</li>
+            </ul>
           </div>
-          <h4 class="font-serif text-xl mb-3">Consultoría de Marca</h4>
-          <p class="text-moda-taupe leading-relaxed">
-            Asesoramiento en identidad visual y posicionamiento para marcas de moda emergentes y establecidas.
-          </p>
+
+          <div>
+            <h4 class="font-serif text-lg mb-4" style="color: #000000;">Áreas de Especialidad</h4>
+            <ul class="space-y-3" style="color: #808080; line-height: 1.8;">
+              <li>• Portadas de revista y editoriales de moda</li>
+              <li>• Campañas y proyectos de marca</li>
+              <li>• Styling para artistas emergentes</li>
+              <li>• Sesiones de test y portfolio de modelos</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

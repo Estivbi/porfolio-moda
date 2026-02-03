@@ -1,72 +1,77 @@
 // projects.js
-// Aquí defines los proyectos de la galería
+import img1 from '../assets/1.jpeg';
+import img2 from '../assets/2.jpeg';  
+import img7 from '../assets/7.jpeg';
+import img9 from '../assets/9.jpeg';
+import img16 from '../assets/16.jpeg';
+import img17 from '../assets/17.jpeg';
 
 const projects = [
   {
     id: 1,
-    title: "Editorial Primavera",
-    category: "editoriales",
+    title: "Victoria - Portada Enero",
+    category: "portadas",
     type: "image",
-    cover: "/vite.svg",
-    images: ["/vite.svg", "/vite.svg"],
+    cover: img1,
+    images: [img1, img1],
     video: null,
-    description: "Editorial de moda primavera 2025. Fotografía y estilismo.",
-    credits: "Fotografía: Ana Pérez, Estilismo: Juan López"
+    description: "Creación y estilismo de portada para revista Victoria",
+    credits: "Estilismo: Patricia Moreno"
   },
   {
     id: 2,
-    title: "Pasarela Otoño",
+    title: "Eien Diamonds - Campaña",
     category: "marcas",
-    type: "video",
-    cover: "/vite.svg",
-    images: [],
-    video: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    description: "Desfile de moda otoño 2025. Video resumen.",
-    credits: "Dirección: Laura Ruiz"
+    type: "image",
+    cover: img2,
+    images: [img2, img2],
+    video: null,
+    description: "Dirección creativa y estilismo para campaña de Eien Diamonds",
+    credits: "@eien.diamonds"
   },
   {
     id: 3,
-    title: "Test de Accesorios",
-    category: "test",
+    title: "Estilismo Artista Emergente",
+    category: "artistas",
     type: "image",
-    cover: "/vite.svg",
-    images: ["/vite.svg"],
+    cover: img7,
+    images: [img7, img7],
     video: null,
-    description: "Prueba de nuevos accesorios de temporada.",
-    credits: "Styling: María García"
+    description: "Creación de looks que refuerzan la imagen y narrativa visual del artista",
+    credits: "Estilismo: Patricia Moreno"
   },
   {
     id: 4,
-    title: "Colaboración Artista",
-    category: "artistas",
+    title: "Test de Modelo",
+    category: "estudio",
     type: "image",
-    cover: "/vite.svg",
-    images: ["/vite.svg", "/vite.svg"],
+    cover: img9,
+    images: [img9, img9],
     video: null,
-    description: "Colección limitada con artista invitado.",
-    credits: "Colaboración: Carlos Rodríguez"
+    description: "Estilismo para sesión test de modelo, potenciando versatilidad",
+    credits: "Estilismo: Patricia Moreno"
   },
   {
     id: 5,
-    title: "Editorial Verano",
-    category: "editoriales",
+    title: "Editorial Independiente",
+    category: "editorial",
     type: "image",
-    cover: "/vite.svg",
-    images: ["/vite.svg"],
+    cover: img17,
+    images: [img17, img17],
     video: null,
-    description: "Campaña de verano 2025.",
-    credits: "Fotografía: Elena Fernández"
+    description: "Proyecto editorial independiente con conceptos visuales creativos",
+    credits: "Dirección: Patricia Moreno"
   },
   {
     id: 6,
-    title: "Marca",
-    category: "marcas",
+    title: "Victoria - Portada Febrero",
+    category: "portadas",
     type: "image",
-    cover: "/vite.svg",
-    images: ["/vite.svg", "/vite.svg"],
+    cover: img16,
+    images: [img16, img16],
     video: null,
-    description: "Proyecto para marca de lujo.",
-    credits: "Creative Director: Pablo López"
+    description: "Creación y estilismo de portada para revista Victoria",
+    credits: "Estilismo: Patricia Moreno"
   }
 ];
 
