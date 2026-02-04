@@ -1,11 +1,11 @@
 /* Fuentes Google Fonts - DEBE estar al inicio */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+@import "tw-animate-css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import "tw-animate-css";
 @plugin "@tailwindcss/forms";
 
 @layer base {
@@ -148,12 +148,10 @@
 }
 
 @layer utilities {
-  * {
-    @apply border-border outline-outline/50;
-  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-white text-black;
   }
+
   button {
     @apply cursor-pointer;
   }
