@@ -9,7 +9,7 @@ import img17 from '../assets/17.jpeg';
 const projects = [
   {
     id: 1,
-    title: "Victoria - Portada Enero",
+    title: "Victoria - Portada Mayo",
     category: "portadas",
     type: "image",
     cover: img1,
@@ -64,7 +64,7 @@ const projects = [
   },
   {
     id: 6,
-    title: "Victoria - Portada Febrero",
+    title: "Victoria - Portada Octubre",
     category: "portadas",
     type: "image",
     cover: img16,
