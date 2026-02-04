@@ -34,17 +34,6 @@ Portafolio profesional de Creative Director y Stylist, construido con **Astro**,
 │   └── assets/         # Imágenes y assets
 ├── astro.config.mjs     # Configuración de Astro
 ├── tailwind.config.js   # Configuración de Tailwind
-└── Cream**: `#FAF9F6` - Blanco roto elegante
-- **Sand**: `#E8E4DF` - Arena suave
-- **Stone**: `#D4CFC9` - Piedra cálida
-- **Taupe**: `#9B8E82` - Taupe sofisticado
-- **Charcoal**: `#2D2926` - Carbón profundo
-- **Accent**: `#C9A690` - Acento dorado suave
-
-- **Rose**: `#F8E8E8` - Suave y romántico
-- **Lilac**: `#F0E6E6` - Elegante y sereno
-- **Peach**: `#F2E2E2` - Cálido y acogedor
-- **Dark**: `#4A3A3A` - Textos principales
 
 ## 🚀 Comandos
 
@@ -126,7 +115,3 @@ Proyecto personal - Patricia © 2026
 ---
 
 Hecho con ❤️ para la moda
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
