@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /.astro
+
+Sitemap: https://patricia-portfolio.com/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
