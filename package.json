@@ -15,7 +15,6 @@
     "@starwind-ui/core": "^0.1.0",
     "@tabler/icons": "^3.36.1",
     "@tailwindcss/forms": "^0.5.11",
-    "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.15",
     "starwind": "^1.15.4",
     "tailwind-merge": "^3.4.0",
