@@ -1,0 +1,414 @@
+---
+// src/pages/galeria/[slug].astro - Galería de fotos de cada sección
+// Mapa de fotos arrastrable (con inercia) + GLightbox para ver cada foto a pantalla completa
+import { getImage } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/layout/Navbar.astro';
+import sections from '../../data/sections.js';
+
+export function getStaticPaths() {
+  return sections.map((section, index) => ({
+    params: { slug: section.slug },
+    props: { section, index },
+  }));
+}
+
+const { section, index } = Astro.props;
+const number = `${String(index + 1).padStart(2, '0')} / ${String(sections.length).padStart(2, '0')}`;
+
+const photos = await Promise.all(
+  section.images.map(async (img, i) => {
+    const thumb = await getImage({ src: img, width: 640 });
+    const full = await getImage({ src: img, width: 1600 });
+    return {
+      thumb: thumb.src,
+      full: full.src,
+      width: img.width,
+      height: img.height,
+      alt: `${section.title} - foto ${i + 1}`,
+    };
+  })
+);
+---
+
+<Layout
+  title={`${section.title} - Patricia Moreno`}
+  description={`${section.title}: ${section.description}. Portfolio de Patricia Moreno, estilista y directora creativa.`}
+>
+  <Navbar />
+
+  <main class="gallery-page flex flex-col" style="background-color: #F5F5F5;">
+    <!-- Cabecera de la sección -->
+    <header class="px-6 md:px-12 pt-6 pb-4 md:pt-8 md:pb-6 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+      <div>
+        <a href="/#proyectos" class="inline-flex items-center gap-2 text-xs uppercase mb-4 transition-opacity hover:opacity-60" style="color: #808080; letter-spacing: 0.15em;">
+          <span aria-hidden="true">&larr;</span> Proyectos
+        </a>
+        <div class="flex items-baseline gap-4">
+          <h1 class="font-serif font-light leading-none" style="color: #000000; font-size: clamp(2.25rem, 6vw, 4rem);">
+            {section.title}
+          </h1>
+          <span class="text-xs" style="color: #808080; letter-spacing: 0.1em;">{number}</span>
+        </div>
+        <p class="mt-3 text-sm md:text-base max-w-xl" style="color: #808080;">
+          {section.description}
+          {section.credits && <span class="block text-xs mt-1" style="letter-spacing: 0.05em;">{section.credits}</span>}
+        </p>
+      </div>
+      {photos.length > 0 && (
+        <p class="hidden md:block text-xs uppercase" style="color: #808080; letter-spacing: 0.15em;">
+          Arrastra para explorar · Pulsa una foto para ampliarla
+        </p>
+      )}
+    </header>
+
+    <!-- Mapa de fotos -->
+    {photos.length > 0 ? (
+      <div id="map-viewport" class="map-viewport" aria-label={`Fotos de ${section.title}`}>
+        <div id="map-canvas" class="map-canvas">
+          {photos.map((photo, i) => (
+            <button
+              type="button"
+              class="map-tile"
+              data-index={i}
+              data-full={photo.full}
+              data-w={photo.width}
+              data-h={photo.height}
+              aria-label={`Ampliar ${photo.alt}`}
+            >
+              <span class="map-tile-inner">
+                <img src={photo.thumb} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" draggable="false" />
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div class="flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <p class="text-xs uppercase mb-4" style="color: #808080; letter-spacing: 0.15em;">Próximamente</p>
+        <p class="font-serif text-2xl md:text-3xl font-light max-w-md" style="color: #000000;">
+          Estamos preparando las fotos de esta sección.
+        </p>
+      </div>
+    )}
+
+    <!-- Navegación entre secciones -->
+    <nav class="gallery-sections px-6 md:px-12 py-4 border-t" style="border-color: #E8E8E8;" aria-label="Secciones">
+      <ul class="flex gap-6 md:gap-10 overflow-x-auto whitespace-nowrap">
+        {sections.map((s) => (
+          <li>
+            <a
+              href={`/galeria/${s.slug}`}
+              class="text-xs uppercase transition-colors"
+              style={`letter-spacing: 0.15em; color: ${s.slug === section.slug ? '#000000' : '#808080'};`}
+              aria-current={s.slug === section.slug ? 'page' : undefined}
+            >
+              {s.title}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </main>
+</Layout>
+
+<style is:global>
+  /* La galería ocupa exactamente la pantalla: el scroll se sustituye por el arrastre */
+  body:has(.gallery-page) {
+    overflow: hidden;
+  }
+
+  .gallery-page {
+    height: 100vh;
+    height: 100svh;
+    padding-top: 81px; /* altura del navbar fijo */
+  }
+
+  .map-viewport {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: auto; /* sin JS: scroll normal */
+  }
+
+  /* Sin JS: rejilla simple */
+  .map-canvas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px 24px;
+  }
+
+  .map-tile {
+    width: 240px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .map-tile-inner {
+    display: block;
+    overflow: hidden;
+    background-color: #E8E8E8;
+  }
+
+  .map-tile img {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .map-tile:focus-visible {
+    outline: 2px solid #000000;
+    outline-offset: 4px;
+  }
+
+  /* Con JS: lienzo arrastrable */
+  .map-viewport.is-map {
+    overflow: hidden;
+    touch-action: none;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .map-viewport.is-map.is-grabbing {
+    cursor: grabbing;
+  }
+
+  .is-map .map-canvas {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0;
+    will-change: transform;
+  }
+
+  .is-map .map-tile {
+    position: absolute;
+    will-change: transform;
+  }
+
+  .is-map .map-tile-inner {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  .is-map .map-tile img {
+    position: absolute;
+    left: -8%;
+    top: -8%;
+    width: 116%;
+    height: 116%;
+    max-width: none;
+    object-fit: cover;
+    will-change: transform;
+  }
+
+  .is-map .map-tile-inner.is-visible {
+    opacity: 1;
+  }
+
+  @keyframes map-pop {
+    from { opacity: 0; transform: scale(0.6); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .gallery-sections ul {
+    scrollbar-width: none;
+  }
+
+  .gallery-sections ul::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  import GLightbox from 'glightbox';
+  import 'glightbox/dist/css/glightbox.min.css';
+
+  const vp = document.getElementById('map-viewport');
+  const cv = document.getElementById('map-canvas');
+
+  if (vp && cv) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const tileEls = Array.from(cv.querySelectorAll<HTMLButtonElement>('.map-tile'));
+
+    const lightbox = GLightbox({
+      elements: tileEls.map((el) => ({
+        href: el.dataset.full,
+        type: 'image',
+        alt: el.querySelector('img')?.alt ?? '',
+      })),
+      loop: true,
+      touchNavigation: true,
+    });
+
+    type Tile = { el: HTMLButtonElement; inner: HTMLElement; img: HTMLImageElement; x: number; y: number; w: number; h: number };
+    let tiles: Tile[] = [];
+    let W = 0, H = 0, vw = 0, vh = 0;
+    let px = 0, py = 0, vx = 0, vy = 0;
+    let minX = 0, maxX = 0, minY = 0, maxY = 0;
+    let target: { x: number; y: number } | null = null;
+
+    const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
+
+    // Coloca las fotos en columnas tipo masonry, respetando su proporción real
+    function layout() {
+      vw = vp!.clientWidth;
+      vh = vp!.clientHeight;
+      const CW = vw < 640 ? 150 : vw < 1024 ? 210 : 260;
+      const GAP = vw < 640 ? 12 : 20;
+      const cols = clamp(Math.round(Math.sqrt(tileEls.length * 1.3)), 1, 8);
+      const heights = Array.from({ length: cols }, (_, c) => (c % 2) * Math.round(CW * 0.3));
+
+      tiles = tileEls.map((el) => {
+        const c = heights.indexOf(Math.min(...heights));
+        const h = Math.round(CW * (Number(el.dataset.h) / Number(el.dataset.w)));
+        const x = c * (CW + GAP);
+        const y = heights[c];
+        heights[c] += h + GAP;
+        el.style.cssText = `left:${x}px;top:${y}px;width:${CW}px;height:${h}px`;
+        return { el, inner: el.firstElementChild as HTMLElement, img: el.querySelector('img')!, x, y, w: CW, h };
+      });
+
+      W = cols * (CW + GAP) - GAP;
+      H = Math.max(...heights) - GAP;
+      cv!.style.width = `${W}px`;
+      cv!.style.height = `${H}px`;
+
+      // Si el lienzo cabe en pantalla se queda centrado; si no, se puede arrastrar
+      const pad = GAP * 2;
+      if (W + pad * 2 <= vw) { minX = maxX = (vw - W) / 2; } else { minX = vw - W - pad; maxX = pad; }
+      if (H + pad * 2 <= vh) { minY = maxY = (vh - H) / 2; } else { minY = vh - H - pad; maxY = pad; }
+    }
+
+    // Animación de entrada: las fotos aparecen desde el centro hacia fuera
+    function enter() {
+      const cx = vw / 2, cy = vh / 2;
+      for (const t of tiles) {
+        if (reducedMotion) { t.inner.classList.add('is-visible'); continue; }
+        const d = Math.hypot(t.x + t.w / 2 + px - cx, t.y + t.h / 2 + py - cy);
+        t.inner.style.animation = `map-pop .7s cubic-bezier(.2,.9,.25,1.12) ${(d * 0.0009).toFixed(3)}s both`;
+      }
+    }
+
+    // Las fotos alejadas del centro se reducen y la imagen interior hace parallax
+    function render() {
+      cv!.style.transform = `translate3d(${px}px,${py}px,0)`;
+      if (reducedMotion) return;
+      for (const t of tiles) {
+        const dx = (t.x + t.w / 2 + px - vw / 2) / (vw / 2);
+        const dy = (t.y + t.h / 2 + py - vh / 2) / (vh / 2);
+        const d = Math.hypot(dx * 0.9, dy * 0.75);
+        const s = clamp(1 - Math.max(0, d - 0.5) * 0.38, 0.55, 1);
+        t.el.style.transform = `scale(${s.toFixed(3)})`;
+        t.img.style.transform = `translate3d(${clamp(-dx * 14, -16, 16).toFixed(1)}px,${clamp(-dy * 14, -16, 16).toFixed(1)}px,0)`;
+      }
+    }
+
+    // Bucle de inercia y rebote en los bordes
+    let dragging = false, last = performance.now();
+    function frame(now: number) {
+      const dt = Math.min(32, now - last);
+      last = now;
+      if (target) {
+        px += (target.x - px) * 0.15;
+        py += (target.y - py) * 0.15;
+        if (Math.abs(target.x - px) < 0.5 && Math.abs(target.y - py) < 0.5) target = null;
+      } else if (!dragging) {
+        px += vx * dt;
+        py += vy * dt;
+        const f = Math.pow(0.94, dt / 16.7);
+        vx *= f;
+        vy *= f;
+        const cx = clamp(px, minX, maxX), cy = clamp(py, minY, maxY);
+        if (cx !== px) { px += (cx - px) * 0.14; vx *= 0.6; }
+        if (cy !== py) { py += (cy - py) * 0.14; vy *= 0.6; }
+      }
+      render();
+      requestAnimationFrame(frame);
+    }
+
+    // Arrastre
+    let moved = 0, lastX = 0, lastY = 0, lastT = 0;
+    vp.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      dragging = true;
+      target = null;
+      moved = 0;
+      vx = vy = 0;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastT = e.timeStamp;
+    });
+    window.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - lastX, dy = e.clientY - lastY, dt = Math.max(1, e.timeStamp - lastT);
+      lastX = e.clientX;
+      lastY = e.clientY;
+      lastT = e.timeStamp;
+      moved += Math.abs(dx) + Math.abs(dy);
+      if (moved > 8) vp.classList.add('is-grabbing');
+      const nx = px + dx, ny = py + dy;
+      px = nx < minX || nx > maxX ? px + dx * 0.35 : nx;
+      py = ny < minY || ny > maxY ? py + dy * 0.35 : ny;
+      vx = vx * 0.6 + (dx / dt) * 0.4;
+      vy = vy * 0.6 + (dy / dt) * 0.4;
+    });
+    const endDrag = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      vp.classList.remove('is-grabbing');
+      if (e.timeStamp - lastT > 80) vx = vy = 0;
+    };
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+
+    // Rueda del ratón / trackpad
+    vp.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      target = null;
+      vx = vy = 0;
+      px = clamp(px - (e.shiftKey ? e.deltaY : e.deltaX), minX, maxX);
+      py = clamp(py - (e.shiftKey ? 0 : e.deltaY), minY, maxY);
+    }, { passive: false });
+
+    // Pulsar una foto (sin haberla arrastrado) abre el lightbox
+    tileEls.forEach((el, i) => {
+      el.addEventListener('click', (e) => {
+        // e.detail === 0 → activado con teclado; si no, ignorar si venía de un arrastre
+        if (e.detail !== 0 && moved > 8) return;
+        lightbox.openAt(i);
+      });
+      // Navegación con teclado: centra la foto enfocada
+      el.addEventListener('focus', () => {
+        const t = tiles[i];
+        target = { x: clamp(vw / 2 - t.x - t.w / 2, minX, maxX), y: clamp(vh / 2 - t.y - t.h / 2, minY, maxY) };
+      });
+    });
+
+    let resizeTimer: number | undefined;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        layout();
+        px = clamp(px, minX, maxX);
+        py = clamp(py, minY, maxY);
+      }, 120);
+    });
+
+    vp.classList.add('is-map');
+    layout();
+    px = (minX + maxX) / 2;
+    py = maxY; // empezar mostrando la primera fila
+    render();
+    enter();
+    requestAnimationFrame(frame);
+  }
+</script>

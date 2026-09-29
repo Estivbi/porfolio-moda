@@ -1,0 +1,65 @@
+---
+// components/projects/SectionCard.astro - Tarjeta de sección con imagen de fondo
+import { Image } from 'astro:assets';
+
+interface Props {
+  section: {
+    slug: string;
+    title: string;
+    description: string;
+    cover: any;
+    images: any[];
+  };
+  index: number;
+  class?: string;
+}
+
+const { section, index, class: className = '' } = Astro.props;
+const number = String(index + 1).padStart(2, '0');
+const isEmpty = section.images.length === 0;
+---
+
+<a
+  href={`/galeria/${section.slug}`}
+  class={`group relative block overflow-hidden ${className}`}
+  style="background-color: #1A1A1A;"
+  aria-label={`${section.title}: ${section.description}`}
+>
+  {section.cover && (
+    <Image
+      src={section.cover}
+      alt=""
+      widths={[480, 800, 1200]}
+      sizes="(min-width: 768px) 50vw, 100vw"
+      class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+      loading="lazy"
+    />
+  )}
+
+  <!-- Degradado para que el texto se lea sobre cualquier foto -->
+  <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.05) 75%, rgba(0,0,0,0.35) 100%);"></div>
+
+  <div class="relative h-full flex flex-col justify-between p-6 md:p-8" style="color: #FFFFFF;">
+    <div class="flex items-start justify-between text-xs uppercase" style="letter-spacing: 0.15em;">
+      <span>{number}</span>
+      {isEmpty ? (
+        <span class="px-3 py-1 border" style="border-color: rgba(255,255,255,0.5);">Próximamente</span>
+      ) : (
+        <span style="opacity: 0.8;">{section.images.length} fotos</span>
+      )}
+    </div>
+
+    <div>
+      <h3 class="font-serif font-light leading-none mb-4" style="font-size: clamp(2.25rem, 5vw, 3.5rem);">
+        {section.title}
+      </h3>
+      <p class="text-sm md:text-base leading-relaxed max-w-sm mb-6" style="color: rgba(255,255,255,0.85);">
+        {section.description}
+      </p>
+      <span class="inline-flex items-center gap-3 text-xs uppercase font-medium" style="letter-spacing: 0.15em;">
+        Ver galería
+        <span class="block h-px w-8 transition-all duration-500 group-hover:w-14" style="background-color: #FFFFFF;"></span>
+      </span>
+    </div>
+  </div>
+</a>
