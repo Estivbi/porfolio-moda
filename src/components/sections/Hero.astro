@@ -1,8 +1,55 @@
 ---
-// components/sections/Hero.astro - Sección hero minimalista y elegante
+// components/sections/Hero.astro - Hero con fotos de fondo
+// Móvil: las fotos aparecen una a una con fundido y un movimiento lento.
+// Tablet/escritorio: mosaico de fotos que se desplaza solo, siguiendo el criterio del mapa de la galería.
+import { getImage } from 'astro:assets';
+
+// Todas las fotos numeradas de src/assets (1.jpeg, 2.jpeg...)
+const modules = import.meta.glob<{ default: ImageMetadata }>('../../assets/*.jpeg', { eager: true });
+const sources = Object.entries(modules)
+  .filter(([path]) => /\/\d+\.jpeg$/.test(path))
+  .sort(([a], [b]) => parseInt(a.match(/(\d+)\.jpeg$/)![1]) - parseInt(b.match(/(\d+)\.jpeg$/)![1]))
+  .map(([, mod]) => mod.default);
+
+const photos = await Promise.all(
+  sources.map(async (img) => ({
+    tile: (await getImage({ src: img, width: 480 })).src,
+    slide: (await getImage({ src: img, width: 900 })).src,
+    width: img.width,
+    height: img.height,
+  }))
+);
 ---
 
-<section id="inicio" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-24" style="background-color: #FFFFFF;">
+<section id="inicio" class="hero min-h-screen flex items-center justify-center relative overflow-hidden pt-24" style="background-color: #FFFFFF;">
+  <!-- Fondo de fotos (decorativo) -->
+  <div class="hero-bg" aria-hidden="true">
+    <!-- Móvil: pase de fotos una a una -->
+    <div class="hero-slides">
+      {photos.map((photo, i) => (
+        <img
+          class={`hero-slide ${i === 0 ? 'is-active' : ''}`}
+          src={i === 0 ? photo.slide : undefined}
+          data-src={photo.slide}
+          alt=""
+          decoding="async"
+        />
+      ))}
+    </div>
+
+    <!-- Tablet y escritorio: mosaico en movimiento -->
+    <div class="hero-map">
+      <div class="hero-map-canvas">
+        {photos.map((photo) => (
+          <template class="hero-photo" data-src={photo.tile} data-w={photo.width} data-h={photo.height}></template>
+        ))}
+      </div>
+    </div>
+
+    <!-- Fundido claro para que el texto se lea -->
+    <div class="hero-fade"></div>
+  </div>
+
   <div class="container-moda relative z-10 px-6 md:px-12 max-w-4xl mx-auto">
     <div>
       <!-- Subtítulo -->
@@ -14,7 +61,7 @@
       </h1>
 
       <!-- Descripción -->
-      <p class="text-lg md:text-xl max-w-3xl mb-16 leading-relaxed slide-up font-light" style="animation-delay: 0.4s; color: #808080;">
+      <p class="text-lg md:text-xl max-w-3xl mb-16 leading-relaxed slide-up font-light" style="animation-delay: 0.4s; color: #4D4D4D;">
         Tengo 21 años y soy estilista y directora creativa. Especializada en desarrollo de conceptos creativos, dirección estética y construcción de narrativas visuales para marcas, artistas y editoriales de moda.
       </p>
 
@@ -23,10 +70,277 @@
         <a href="#proyectos" class="px-8 py-4 transition-colors text-sm font-medium tracking-wide border-2" style="background-color: #000000; color: #FFFFFF; border-color: #000000;" onmouseover="this.style.backgroundColor='#808080'; this.style.borderColor='#808080'" onmouseout="this.style.backgroundColor='#000000'; this.style.borderColor='#000000'">
           Ver Proyectos
         </a>
-        <a href="#contacto" class="px-8 py-4 transition-colors text-sm font-medium tracking-wide border-2" style="border-color: #000000; color: #000000;" onmouseover="this.style.backgroundColor='#000000'; this.style.color='#FFFFFF'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#000000'">
+        <a href="#contacto" class="px-8 py-4 transition-colors text-sm font-medium tracking-wide border-2" style="border-color: #000000; color: #000000; background-color: rgba(255,255,255,0.6);" onmouseover="this.style.backgroundColor='#000000'; this.style.color='#FFFFFF'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.6)'; this.style.color='#000000'">
           Contactar
         </a>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* ---------- Móvil: pase de fotos ---------- */
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.12);
+    transition: opacity 1.6s ease, transform 7s linear;
+  }
+
+  .hero-slide.is-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .hero-map {
+    display: none;
+  }
+
+  .hero-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.88) 100%);
+  }
+
+  /* ---------- Tablet y escritorio: mosaico ---------- */
+  @media (min-width: 768px) {
+    .hero-slides {
+      display: none;
+    }
+
+    .hero-map {
+      display: block;
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    .hero-map-canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      will-change: transform;
+    }
+
+    .hero-fade {
+      background:
+        radial-gradient(ellipse 60% 55% at 45% 52%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.78) 55%, rgba(255, 255, 255, 0.3) 100%),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 0.7) 100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide {
+      transition: opacity 0.01s;
+      transform: none;
+    }
+  }
+</style>
+
+<style is:global>
+  /* Teselas creadas desde JS (fuera del ámbito de estilos del componente) */
+  .hero-tile {
+    position: absolute;
+    overflow: hidden;
+    background-color: #EDEDED;
+    will-change: transform;
+  }
+
+  .hero-tile img {
+    position: absolute;
+    left: -8%;
+    top: -8%;
+    width: 116%;
+    height: 116%;
+    max-width: none;
+    object-fit: cover;
+    will-change: transform;
+  }
+
+  .hero-tile-inner {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  @keyframes hero-pop {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('.hero');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isLarge = window.matchMedia('(min-width: 768px)');
+
+  // Pausar animaciones cuando el hero no se ve
+  let heroVisible = true;
+  if (hero) {
+    new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; }).observe(hero);
+  }
+
+  /* ---------- Móvil: una foto tras otra con fundido ---------- */
+  const slides = Array.from(document.querySelectorAll<HTMLImageElement>('.hero-slide'));
+  let current = 0;
+
+  function loadSlide(img: HTMLImageElement) {
+    if (!img.getAttribute('src') && img.dataset.src) img.src = img.dataset.src;
+  }
+
+  if (slides.length > 1 && !reducedMotion) {
+    loadSlide(slides[1]);
+    setInterval(() => {
+      if (isLarge.matches || !heroVisible || document.hidden) return;
+      const next = (current + 1) % slides.length;
+      loadSlide(slides[next]);
+      // Precargar la siguiente para que el fundido no espere a la red
+      loadSlide(slides[(next + 1) % slides.length]);
+      slides[current].classList.remove('is-active');
+      slides[next].classList.add('is-active');
+      current = next;
+    }, 4500);
+  }
+
+  /* ---------- Tablet/escritorio: mosaico que se desplaza solo ---------- */
+  const mapEl = document.querySelector<HTMLElement>('.hero-map');
+  const canvas = document.querySelector<HTMLElement>('.hero-map-canvas');
+  const sources = Array.from(document.querySelectorAll<HTMLTemplateElement>('.hero-photo')).map((t) => ({
+    src: t.dataset.src!,
+    ratio: Number(t.dataset.h) / Number(t.dataset.w),
+  }));
+  // Mezclar las fotos para que las de una misma sesión no salgan juntas
+  for (let i = sources.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [sources[i], sources[j]] = [sources[j], sources[i]];
+  }
+
+  type Tile = { el: HTMLElement; img: HTMLImageElement; x: number; y: number; w: number; h: number };
+  let tiles: Tile[] = [];
+  let W = 0, H = 0, vw = 0, vh = 0;
+  let built = false;
+
+  const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
+
+  // Columnas tipo masonry, más grandes que la pantalla para tener recorrido
+  function build() {
+    if (!mapEl || !canvas || !sources.length) return;
+    vw = mapEl.clientWidth;
+    vh = mapEl.clientHeight;
+    const CW = vw < 1024 ? 190 : 240;
+    const GAP = vw < 1024 ? 16 : 22;
+    const cols = Math.ceil((vw * 1.35) / (CW + GAP)) + 1;
+    W = cols * (CW + GAP) - GAP;
+    H = Math.round(vh * 1.4);
+
+    canvas.innerHTML = '';
+    tiles = [];
+    let n = 0;
+    for (let c = 0; c < cols; c++) {
+      let y = (c % 2) * Math.round(CW * 0.45) - Math.round(CW * 0.3);
+      while (y < H) {
+        const photo = sources[n % sources.length];
+        const h = Math.round(CW * photo.ratio);
+        const el = document.createElement('div');
+        el.className = 'hero-tile';
+        el.style.cssText = `left:${c * (CW + GAP)}px;top:${y}px;width:${CW}px;height:${h}px`;
+        const inner = document.createElement('div');
+        inner.className = 'hero-tile-inner';
+        const img = document.createElement('img');
+        img.src = photo.src;
+        img.alt = '';
+        img.decoding = 'async';
+        inner.appendChild(img);
+        el.appendChild(inner);
+        canvas.appendChild(el);
+        tiles.push({ el, img, x: c * (CW + GAP), y, w: CW, h });
+        // Orden correlativo: una foto no se repite hasta haber usado todas
+        n++;
+        y += h + GAP;
+      }
+    }
+    canvas.style.width = `${W}px`;
+    canvas.style.height = `${H}px`;
+    built = true;
+  }
+
+  // Entrada: las fotos aparecen desde el centro hacia fuera, como en el mapa
+  function enter() {
+    const cx = vw / 2, cy = vh / 2, ox = (vw - W) / 2, oy = (vh - H) / 2;
+    for (const t of tiles) {
+      const inner = t.el.firstElementChild as HTMLElement;
+      if (reducedMotion) { inner.style.opacity = '1'; continue; }
+      const d = Math.hypot(t.x + t.w / 2 + ox - cx, t.y + t.h / 2 + oy - cy);
+      inner.style.animation = `hero-pop 1.2s cubic-bezier(.2,.9,.25,1) ${(0.3 + d * 0.0012).toFixed(3)}s both`;
+    }
+  }
+
+  // Ratón: desplaza suavemente el mosaico
+  let mouseX = 0, mouseY = 0, mx = 0, my = 0;
+  window.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    mouseX = e.clientX / window.innerWidth - 0.5;
+    mouseY = e.clientY / window.innerHeight - 0.5;
+  });
+
+  function render(px: number, py: number) {
+    canvas!.style.transform = `translate3d(${px.toFixed(1)}px,${py.toFixed(1)}px,0)`;
+    for (const t of tiles) {
+      const dx = (t.x + t.w / 2 + px - vw / 2) / (vw / 2);
+      const dy = (t.y + t.h / 2 + py - vh / 2) / (vh / 2);
+      const d = Math.hypot(dx * 0.9, dy * 0.75);
+      const s = clamp(1 - Math.max(0, d - 0.55) * 0.35, 0.6, 1);
+      t.el.style.transform = `scale(${s.toFixed(3)})`;
+      t.img.style.transform = `translate3d(${clamp(-dx * 12, -14, 14).toFixed(1)}px,${clamp(-dy * 12, -14, 14).toFixed(1)}px,0)`;
+    }
+  }
+
+  const start = performance.now();
+  function frame(now: number) {
+    if (isLarge.matches && built && heroVisible && !document.hidden) {
+      const t = reducedMotion ? 0 : (now - start) / 1000;
+      const ampX = (W - vw) / 2 - 20;
+      const ampY = (H - vh) / 2 - 20;
+      mx += (mouseX - mx) * 0.04;
+      my += (mouseY - my) * 0.04;
+      // Recorrido lento en forma de lazo + un poco de influencia del ratón
+      const px = (vw - W) / 2 + ampX * (0.75 * Math.sin(t * 0.045) - (reducedMotion ? 0 : mx * 0.35));
+      const py = (vh - H) / 2 + ampY * (0.75 * Math.sin(t * 0.07 + 1) - (reducedMotion ? 0 : my * 0.35));
+      render(px, py);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function setup() {
+    if (!isLarge.matches || built) return;
+    build();
+    enter();
+  }
+
+  let resizeTimer: number | undefined;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(() => {
+      if (!isLarge.matches || !mapEl) return;
+      // Reconstruir solo si cambia bastante el tamaño
+      if (!built || Math.abs(mapEl.clientWidth - vw) > 80 || Math.abs(mapEl.clientHeight - vh) > 80) {
+        built = false;
+        setup();
+      }
+    }, 200);
+  });
+
+  setup();
+  requestAnimationFrame(frame);
+</script>
