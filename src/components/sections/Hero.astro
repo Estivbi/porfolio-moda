@@ -4,12 +4,22 @@
 // Tablet/escritorio: mosaico de fotos que se desplaza solo, siguiendo el criterio del mapa de la galería.
 import { getImage } from 'astro:assets';
 
-// Todas las fotos numeradas de src/assets (1.jpeg, 2.jpeg...)
-const modules = import.meta.glob<{ default: ImageMetadata }>('../../assets/*.jpeg', { eager: true });
-const sources = Object.entries(modules)
-  .filter(([path]) => /\/\d+\.jpeg$/.test(path))
-  .sort(([a], [b]) => parseInt(a.match(/(\d+)\.jpeg$/)![1]) - parseInt(b.match(/(\d+)\.jpeg$/)![1]))
-  .map(([, mod]) => mod.default);
+// Fotos numeradas de src/assets (1.jpeg, 2.jpeg...) y de src/assets/desfiles
+const byNumber = (modules: Record<string, { default: ImageMetadata }>) =>
+  Object.entries(modules)
+    .filter(([path]) => /\/\d+\.jpe?g$/.test(path))
+    .sort(([a], [b]) => parseInt(a.match(/(\d+)\.jpe?g$/)![1]) - parseInt(b.match(/(\d+)\.jpe?g$/)![1]))
+    .map(([, mod]) => mod.default);
+
+const general = byNumber(import.meta.glob<{ default: ImageMetadata }>('../../assets/*.jpeg', { eager: true }));
+const desfiles = byNumber(import.meta.glob<{ default: ImageMetadata }>('../../assets/desfiles/*.jpg', { eager: true }));
+
+// Intercalar ambas listas para que en el pase del móvil los desfiles salgan desde el principio
+const sources: ImageMetadata[] = [];
+for (let i = 0; i < Math.max(general.length, desfiles.length); i++) {
+  if (desfiles[i]) sources.push(desfiles[i]);
+  if (general[i]) sources.push(general[i]);
+}
 
 const photos = await Promise.all(
   sources.map(async (img) => ({
