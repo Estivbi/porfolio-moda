@@ -16,6 +16,15 @@ import img15 from '../assets/15.jpeg';
 import img16 from '../assets/16.jpeg';
 import img17 from '../assets/17.jpeg';
 import img18 from '../assets/18.jpeg';
+import desfile1 from '../assets/desfiles/1.jpg';
+import desfile2 from '../assets/desfiles/2.jpg';
+import desfile3 from '../assets/desfiles/3.jpg';
+import desfile4 from '../assets/desfiles/4.jpg';
+import desfile5 from '../assets/desfiles/5.jpg';
+import desfile6 from '../assets/desfiles/6.jpg';
+import desfile7 from '../assets/desfiles/7.jpg';
+import desfile8 from '../assets/desfiles/8.jpg';
+import desfile9 from '../assets/desfiles/9.jpg';
 
 const sections = [
   {
@@ -23,8 +32,8 @@ const sections = [
     title: 'Desfiles',
     description: 'Estilismo y coordinación de looks para pasarela',
     credits: 'Estilismo: Patricia Moreno',
-    cover: null,
-    images: []
+    cover: desfile6,
+    images: [desfile6, desfile2, desfile5, desfile3, desfile4, desfile7, desfile1, desfile8, desfile9]
   },
   {
     slug: 'editoriales',
