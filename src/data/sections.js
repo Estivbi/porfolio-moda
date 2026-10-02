@@ -41,6 +41,19 @@ import editorial14 from '../assets/editoriales/14.jpg';
 import editorial15 from '../assets/editoriales/15.jpg';
 import editorial16 from '../assets/editoriales/16.jpg';
 
+// Todas las fotos de las carpetas de src/assets, para las secciones que se rellenan solas
+const folderModules = import.meta.glob('../assets/*/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
+
+// Fotos de una carpeta ordenadas por nombre (1, 2, 3... 10). Basta con subir la foto a la carpeta.
+function folderImages(folder) {
+  return Object.entries(folderModules)
+    .filter(([path]) => path.includes(`/assets/${folder}/`))
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+    .map(([, img]) => img);
+}
+
+const artistas = folderImages('artistas');
+
 const sections = [
   {
     slug: 'desfiles',
@@ -65,6 +78,14 @@ const sections = [
     credits: '@eien.diamonds',
     cover: img4,
     images: [img4, img2, img3]
+  },
+  {
+    slug: 'artistas',
+    title: 'Artistas',
+    description: 'Creación de looks que refuerzan la imagen y narrativa visual del artista',
+    credits: 'Estilismo: Patricia Moreno',
+    cover: artistas[0] ?? null,
+    images: artistas
   },
   {
     slug: 'portadas',
