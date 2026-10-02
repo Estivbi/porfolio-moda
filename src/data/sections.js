@@ -25,6 +25,21 @@ import desfile6 from '../assets/desfiles/6.jpg';
 import desfile7 from '../assets/desfiles/7.jpg';
 import desfile8 from '../assets/desfiles/8.jpg';
 import desfile9 from '../assets/desfiles/9.jpg';
+import editorial1 from '../assets/editoriales/1.jpg';
+import editorial2 from '../assets/editoriales/2.webp';
+import editorial3 from '../assets/editoriales/3.webp';
+import editorial4 from '../assets/editoriales/4.webp';
+import editorial5 from '../assets/editoriales/5.jpg';
+import editorial6 from '../assets/editoriales/6.jpg';
+import editorial7 from '../assets/editoriales/7.jpg';
+import editorial8 from '../assets/editoriales/8.jpg';
+import editorial9 from '../assets/editoriales/9.jpg';
+import editorial10 from '../assets/editoriales/10.jpg';
+import editorial11 from '../assets/editoriales/11.jpg';
+import editorial12 from '../assets/editoriales/12.jpg';
+import editorial14 from '../assets/editoriales/14.jpg';
+import editorial15 from '../assets/editoriales/15.jpg';
+import editorial16 from '../assets/editoriales/16.jpg';
 
 const sections = [
   {
@@ -41,7 +56,7 @@ const sections = [
     description: 'Proyecto editorial independiente con conceptos visuales creativos',
     credits: 'Dirección: Patricia Moreno',
     cover: img17,
-    images: [img17, img18]
+    images: [img17, editorial1, img18, editorial2, editorial3, editorial7, editorial9, editorial8, editorial5, editorial6, editorial14, editorial4, editorial11, editorial10, editorial15, editorial12, editorial16]
   },
   {
     slug: 'marcas',

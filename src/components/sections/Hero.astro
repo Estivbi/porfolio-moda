@@ -4,21 +4,28 @@
 // Tablet/escritorio: mosaico de fotos que se desplaza solo, siguiendo el criterio del mapa de la galería.
 import { getImage } from 'astro:assets';
 
-// Fotos numeradas de src/assets (1.jpeg, 2.jpeg...) y de src/assets/desfiles
-const byNumber = (modules: Record<string, { default: ImageMetadata }>) =>
-  Object.entries(modules)
-    .filter(([path]) => /\/\d+\.jpe?g$/.test(path))
-    .sort(([a], [b]) => parseInt(a.match(/(\d+)\.jpe?g$/)![1]) - parseInt(b.match(/(\d+)\.jpe?g$/)![1]))
+// Fotos de src/assets (1.jpeg, 2.jpeg...) y de cada carpeta dentro (desfiles, editoriales...).
+// Una carpeta nueva con fotos numeradas aparece en el hero sin tocar este archivo.
+const fileNumber = (path: string) => parseInt(path.match(/(\d+)\.\w+$/)?.[1] ?? '0');
+const byNumber = (entries: [string, { default: ImageMetadata }][]) =>
+  entries
+    .filter(([path]) => /\/\d+\.(jpe?g|webp|png)$/.test(path))
+    .sort(([a], [b]) => fileNumber(a) - fileNumber(b))
     .map(([, mod]) => mod.default);
 
-const general = byNumber(import.meta.glob<{ default: ImageMetadata }>('../../assets/*.jpeg', { eager: true }));
-const desfiles = byNumber(import.meta.glob<{ default: ImageMetadata }>('../../assets/desfiles/*.jpg', { eager: true }));
+const general = byNumber(Object.entries(import.meta.glob<{ default: ImageMetadata }>('../../assets/*.{jpg,jpeg,webp,png}', { eager: true })));
 
-// Intercalar ambas listas para que en el pase del móvil los desfiles salgan desde el principio
+const folders = new Map<string, [string, { default: ImageMetadata }][]>();
+for (const entry of Object.entries(import.meta.glob<{ default: ImageMetadata }>('../../assets/*/*.{jpg,jpeg,webp,png}', { eager: true }))) {
+  const folder = entry[0].split('/').at(-2)!;
+  folders.set(folder, [...(folders.get(folder) ?? []), entry]);
+}
+const groups = [...[...folders.values()].map(byNumber), general];
+
+// Intercalar las carpetas para que en el pase del móvil salgan fotos de todas desde el principio
 const sources: ImageMetadata[] = [];
-for (let i = 0; i < Math.max(general.length, desfiles.length); i++) {
-  if (desfiles[i]) sources.push(desfiles[i]);
-  if (general[i]) sources.push(general[i]);
+for (let i = 0; i < Math.max(...groups.map((g) => g.length)); i++) {
+  for (const group of groups) if (group[i]) sources.push(group[i]);
 }
 
 const photos = await Promise.all(
