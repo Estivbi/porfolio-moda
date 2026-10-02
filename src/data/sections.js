@@ -25,6 +25,11 @@ import desfile6 from '../assets/desfiles/6.jpg';
 import desfile7 from '../assets/desfiles/7.jpg';
 import desfile8 from '../assets/desfiles/8.jpg';
 import desfile9 from '../assets/desfiles/9.jpg';
+import editorial1 from '../assets/editoriales/1.jpg';
+import editorial2 from '../assets/editoriales/2.webp';
+import editorial3 from '../assets/editoriales/3.webp';
+import editorial4 from '../assets/editoriales/4.webp';
+import editorial5 from '../assets/editoriales/5.jpg';
 
 const sections = [
   {
@@ -41,7 +46,7 @@ const sections = [
     description: 'Proyecto editorial independiente con conceptos visuales creativos',
     credits: 'Dirección: Patricia Moreno',
     cover: img17,
-    images: [img17, img18]
+    images: [img17, editorial1, img18, editorial2, editorial3, editorial5, editorial4]
   },
   {
     slug: 'marcas',
