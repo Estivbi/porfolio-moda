@@ -1,7 +1,7 @@
 ---
 // components/sections/Hero.astro - Hero con fotos de fondo
-// Móvil: las fotos aparecen una a una con fundido y un movimiento lento.
-// Tablet/escritorio: mosaico de fotos que se desplaza solo, siguiendo el criterio del mapa de la galería.
+// Mosaico de fotos que se desplaza solo, siguiendo el criterio del mapa de la galería.
+// En móvil las fotos son más pequeñas para que quepan varias columnas.
 import { getImage } from 'astro:assets';
 
 // Fotos de src/assets (1.jpeg, 2.jpeg...) y de cada carpeta dentro (desfiles, editoriales...).
@@ -22,7 +22,7 @@ for (const entry of Object.entries(import.meta.glob<{ default: ImageMetadata }>(
 }
 const groups = [...[...folders.values()].map(byNumber), general];
 
-// Intercalar las carpetas para que en el pase del móvil salgan fotos de todas desde el principio
+// Intercalar las carpetas para que las fotos de todas se repartan por el mosaico
 const sources: ImageMetadata[] = [];
 for (let i = 0; i < Math.max(...groups.map((g) => g.length)); i++) {
   for (const group of groups) if (group[i]) sources.push(group[i]);
@@ -31,7 +31,6 @@ for (let i = 0; i < Math.max(...groups.map((g) => g.length)); i++) {
 const photos = await Promise.all(
   sources.map(async (img) => ({
     tile: (await getImage({ src: img, width: 480 })).src,
-    slide: (await getImage({ src: img, width: 900 })).src,
     width: img.width,
     height: img.height,
   }))
@@ -41,20 +40,7 @@ const photos = await Promise.all(
 <section id="inicio" class="hero min-h-screen flex items-center justify-center relative overflow-hidden pt-24" style="background-color: #FFFFFF;">
   <!-- Fondo de fotos (decorativo) -->
   <div class="hero-bg" aria-hidden="true">
-    <!-- Móvil: pase de fotos una a una -->
-    <div class="hero-slides">
-      {photos.map((photo, i) => (
-        <img
-          class={`hero-slide ${i === 0 ? 'is-active' : ''}`}
-          src={i === 0 ? photo.slide : undefined}
-          data-src={photo.slide}
-          alt=""
-          decoding="async"
-        />
-      ))}
-    </div>
-
-    <!-- Tablet y escritorio: mosaico en movimiento -->
+    <!-- Mosaico en movimiento -->
     <div class="hero-map">
       <div class="hero-map-canvas">
         {photos.map((photo) => (
@@ -102,26 +88,17 @@ const photos = await Promise.all(
     pointer-events: none;
   }
 
-  /* ---------- Móvil: pase de fotos ---------- */
-  .hero-slide {
+  .hero-map {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    object-fit: cover;
-    opacity: 0;
-    transform: scale(1.12);
-    transition: opacity 1.6s ease, transform 7s linear;
+    overflow: hidden;
   }
 
-  .hero-slide.is-active {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .hero-map {
-    display: none;
+  .hero-map-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    will-change: transform;
   }
 
   .hero-fade {
@@ -130,37 +107,12 @@ const photos = await Promise.all(
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.88) 100%);
   }
 
-  /* ---------- Tablet y escritorio: mosaico ---------- */
+  /* En tablet y escritorio el texto no ocupa todo el ancho: fundido centrado en él */
   @media (min-width: 768px) {
-    .hero-slides {
-      display: none;
-    }
-
-    .hero-map {
-      display: block;
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-    }
-
-    .hero-map-canvas {
-      position: absolute;
-      left: 0;
-      top: 0;
-      will-change: transform;
-    }
-
     .hero-fade {
       background:
         radial-gradient(ellipse 60% 55% at 45% 52%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.78) 55%, rgba(255, 255, 255, 0.3) 100%),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 0.7) 100%);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-slide {
-      transition: opacity 0.01s;
-      transform: none;
     }
   }
 </style>
@@ -200,7 +152,6 @@ const photos = await Promise.all(
 <script>
   const hero = document.querySelector<HTMLElement>('.hero');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isLarge = window.matchMedia('(min-width: 768px)');
 
   // Pausar animaciones cuando el hero no se ve
   let heroVisible = true;
@@ -208,29 +159,7 @@ const photos = await Promise.all(
     new IntersectionObserver(([entry]) => { heroVisible = entry.isIntersecting; }).observe(hero);
   }
 
-  /* ---------- Móvil: una foto tras otra con fundido ---------- */
-  const slides = Array.from(document.querySelectorAll<HTMLImageElement>('.hero-slide'));
-  let current = 0;
-
-  function loadSlide(img: HTMLImageElement) {
-    if (!img.getAttribute('src') && img.dataset.src) img.src = img.dataset.src;
-  }
-
-  if (slides.length > 1 && !reducedMotion) {
-    loadSlide(slides[1]);
-    setInterval(() => {
-      if (isLarge.matches || !heroVisible || document.hidden) return;
-      const next = (current + 1) % slides.length;
-      loadSlide(slides[next]);
-      // Precargar la siguiente para que el fundido no espere a la red
-      loadSlide(slides[(next + 1) % slides.length]);
-      slides[current].classList.remove('is-active');
-      slides[next].classList.add('is-active');
-      current = next;
-    }, 4500);
-  }
-
-  /* ---------- Tablet/escritorio: mosaico que se desplaza solo ---------- */
+  /* ---------- Mosaico que se desplaza solo ---------- */
   const mapEl = document.querySelector<HTMLElement>('.hero-map');
   const canvas = document.querySelector<HTMLElement>('.hero-map-canvas');
   const sources = Array.from(document.querySelectorAll<HTMLTemplateElement>('.hero-photo')).map((t) => ({
@@ -255,8 +184,8 @@ const photos = await Promise.all(
     if (!mapEl || !canvas || !sources.length) return;
     vw = mapEl.clientWidth;
     vh = mapEl.clientHeight;
-    const CW = vw < 1024 ? 190 : 240;
-    const GAP = vw < 1024 ? 16 : 22;
+    const CW = vw < 768 ? 120 : vw < 1024 ? 190 : 240;
+    const GAP = vw < 768 ? 10 : vw < 1024 ? 16 : 22;
     const cols = Math.ceil((vw * 1.35) / (CW + GAP)) + 1;
     W = cols * (CW + GAP) - GAP;
     H = Math.round(vh * 1.4);
@@ -325,7 +254,7 @@ const photos = await Promise.all(
 
   const start = performance.now();
   function frame(now: number) {
-    if (isLarge.matches && built && heroVisible && !document.hidden) {
+    if (built && heroVisible && !document.hidden) {
       const t = reducedMotion ? 0 : (now - start) / 1000;
       const ampX = (W - vw) / 2 - 20;
       const ampY = (H - vh) / 2 - 20;
@@ -340,7 +269,7 @@ const photos = await Promise.all(
   }
 
   function setup() {
-    if (!isLarge.matches || built) return;
+    if (built) return;
     build();
     enter();
   }
@@ -349,9 +278,9 @@ const photos = await Promise.all(
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => {
-      if (!isLarge.matches || !mapEl) return;
-      // Reconstruir solo si cambia bastante el tamaño
-      if (!built || Math.abs(mapEl.clientWidth - vw) > 80 || Math.abs(mapEl.clientHeight - vh) > 80) {
+      if (!mapEl) return;
+      // Reconstruir solo si cambia bastante el tamaño (en móvil la barra del navegador cambia el alto al hacer scroll)
+      if (!built || Math.abs(mapEl.clientWidth - vw) > 80 || Math.abs(mapEl.clientHeight - vh) > 200) {
         built = false;
         setup();
       }
