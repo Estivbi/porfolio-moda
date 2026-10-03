@@ -38,7 +38,7 @@ import editorial15 from '../assets/editoriales/15.jpg';
 import editorial16 from '../assets/editoriales/16.jpg';
 
 // Todas las fotos de las carpetas de src/assets, para las secciones que se rellenan solas
-const folderModules = import.meta.glob('../assets/*/*.{jpg,jpeg,png,webp}', { eager: true, import: 'default' });
+const folderModules = import.meta.glob('../assets/*/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', { eager: true, import: 'default' });
 
 // Fotos de una carpeta ordenadas por nombre (1, 2, 3... 10). Basta con subir la foto a la carpeta.
 function folderEntries(folder) {
@@ -59,7 +59,8 @@ function folderImage(folder, name) {
 }
 
 const artistas = folderImages('artistas');
-// Portadas: cada portada seguida de las fotos de su sesión (1 portada Octubre, 2-3 su sesión, 4 Primera Edición...)
+// Portadas: cada portada seguida de las fotos de su sesión, de la edición más reciente a la más antigua
+// (1 Nº 9, 5 Nº 7, 9 Nº 6, 12 Nº 4, 16 Nº 1 Primera Edición)
 const portadas = folderImages('portadas');
 
 const sections = [
@@ -101,7 +102,7 @@ const sections = [
     description: 'Creación y estilismo de portada para revista Victoria',
     credits: 'Estilismo: Patricia Moreno',
     // Fondo de la tarjeta: una foto de sesión, sin el texto de la revista encima
-    cover: folderImage('portadas', '3'),
+    cover: folderImage('portadas', '11'),
     images: portadas
   },
   {

@@ -9,14 +9,14 @@ import { getImage } from 'astro:assets';
 const fileNumber = (path: string) => parseInt(path.match(/(\d+)\.\w+$/)?.[1] ?? '0');
 const byNumber = (entries: [string, { default: ImageMetadata }][]) =>
   entries
-    .filter(([path]) => /\/\d+\.(jpe?g|webp|png)$/.test(path))
+    .filter(([path]) => /\/\d+\.(jpe?g|webp|png)$/i.test(path))
     .sort(([a], [b]) => fileNumber(a) - fileNumber(b))
     .map(([, mod]) => mod.default);
 
-const general = byNumber(Object.entries(import.meta.glob<{ default: ImageMetadata }>('../../assets/*.{jpg,jpeg,webp,png}', { eager: true })));
+const general = byNumber(Object.entries(import.meta.glob<{ default: ImageMetadata }>('../../assets/*.{jpg,jpeg,webp,png,JPG,JPEG,WEBP,PNG}', { eager: true })));
 
 const folders = new Map<string, [string, { default: ImageMetadata }][]>();
-for (const entry of Object.entries(import.meta.glob<{ default: ImageMetadata }>('../../assets/*/*.{jpg,jpeg,webp,png}', { eager: true }))) {
+for (const entry of Object.entries(import.meta.glob<{ default: ImageMetadata }>('../../assets/*/*.{jpg,jpeg,webp,png,JPG,JPEG,WEBP,PNG}', { eager: true }))) {
   const folder = entry[0].split('/').at(-2)!;
   folders.set(folder, [...(folders.get(folder) ?? []), entry]);
 }
