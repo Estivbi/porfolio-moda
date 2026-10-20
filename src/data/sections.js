@@ -1,6 +1,7 @@
 // sections.js - Secciones del portfolio y sus fotos
 // Para añadir fotos a una sección: importa la imagen y añádela a `images`.
 // `cover` es la imagen de fondo de la tarjeta en la home.
+// `title` va en inglés en las dos versiones; `description` y `credits` tienen texto en español (es) e inglés (en).
 import img2 from '../assets/2.jpeg';
 import img3 from '../assets/3.jpeg';
 import img4 from '../assets/4.jpeg';
@@ -66,50 +67,68 @@ const portadas = folderImages('portadas');
 const sections = [
   {
     slug: 'desfiles',
-    title: 'Desfiles',
-    description: 'Estilismo y coordinación de looks para pasarela',
-    credits: 'Estilismo: Patricia Moreno',
+    title: 'Runway',
+    description: {
+      es: 'Estilismo y coordinación de looks para el desfile de Apolineo Studio en la Mercedes-Benz Fashion Week',
+      en: 'Styling and look coordination for the Apolineo Studio show at Mercedes-Benz Fashion Week',
+    },
+    credits: { es: 'Estilismo: Patricia Moreno', en: 'Styling: Patricia Moreno' },
     cover: desfile6,
     images: [desfile6, desfile2, desfile5, desfile3, desfile4, desfile7, desfile1, desfile8, desfile9]
   },
   {
     slug: 'editoriales',
-    title: 'Editoriales',
-    description: 'Proyecto editorial independiente con conceptos visuales creativos',
-    credits: 'Dirección: Patricia Moreno',
+    title: 'Editorials',
+    description: {
+      es: 'Proyecto editorial independiente con conceptos visuales creativos',
+      en: 'Independent editorial project with creative visual concepts',
+    },
+    credits: { es: 'Dirección: Patricia Moreno', en: 'Direction: Patricia Moreno' },
     cover: img17,
     images: [img17, editorial1, img18, editorial2, editorial3, editorial7, editorial9, editorial8, editorial5, editorial6, editorial14, editorial4, editorial11, editorial10, editorial15, editorial12, editorial16]
   },
   {
     slug: 'marcas',
-    title: 'Marcas',
-    description: 'Dirección creativa y estilismo para campaña de Eien Diamonds',
-    credits: '@eien.diamonds',
+    title: 'Brands',
+    description: {
+      es: 'Dirección creativa y estilismo para campaña de Eien Diamonds',
+      en: 'Creative direction and styling for an Eien Diamonds campaign',
+    },
+    credits: { es: '@eien.diamonds', en: '@eien.diamonds' },
     cover: img4,
     images: [img4, img2, img3]
   },
   {
     slug: 'artistas',
-    title: 'Artistas',
-    description: 'Creación de looks que refuerzan la imagen y narrativa visual del artista',
-    credits: 'Estilismo: Patricia Moreno',
+    title: 'Artists',
+    description: {
+      es: 'Creación de looks que refuerzan la imagen y narrativa visual del artista',
+      en: "Creating looks that strengthen the artist's image and visual narrative",
+    },
+    credits: { es: 'Estilismo: Patricia Moreno', en: 'Styling: Patricia Moreno' },
     cover: artistas[0] ?? null,
     images: artistas
   },
   {
     slug: 'portadas',
-    title: 'Portadas',
-    description: 'Creación y estilismo de portada para revista Victoria',
-    credits: 'Estilismo: Patricia Moreno',
+    title: 'Covers',
+    description: {
+      es: 'Creación y estilismo de portada para revista Victoria',
+      en: 'Cover creation and styling for Victoria magazine',
+    },
+    credits: { es: 'Estilismo: Patricia Moreno', en: 'Styling: Patricia Moreno' },
     // Fondo de la tarjeta: una foto de sesión, sin el texto de la revista encima
     cover: folderImage('portadas', '11'),
     images: portadas
   },
   {
     slug: 'test-modelos',
-    title: 'Test Modelos',
-    description: 'Estilismo para sesión test de modelo, potenciando versatilidad',
-    credits: 'Estilismo: Patricia Moreno',
+    title: 'Model Tests',
+    description: {
+      es: 'Estilismo para sesión test de modelo, potenciando versatilidad',
+      en: "Styling for model test shoots, highlighting the model's versatility",
+    },
+    credits: { es: 'Estilismo: Patricia Moreno', en: 'Styling: Patricia Moreno' },
     cover: img8,
     images: [img8, img9, img10, img11, img12, img13]
   }

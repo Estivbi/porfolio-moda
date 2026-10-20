@@ -1,41 +1,51 @@
 ---
 import "@/styles/starwind.css";
 import "@/styles/global.css";
+import { useTranslations, switchLangPath } from '../i18n/ui.js';
 
 interface Props {
   title?: string;
   description?: string;
+  lang?: 'es' | 'en';
 }
 
-const { 
-  title = "Patricia - Creative Director & Fashion Stylist",
-  description = "Portafolio de Patricia, Creative Director especializada en moda y diseño visual. Descubre mis proyectos, mi historia y mi visión creativa."
-} = Astro.props;
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const { title = t.meta.title, description = t.meta.description } = Astro.props;
+
+const siteUrl = 'https://patricia-portfolio.com';
+const canonical = `${siteUrl}${Astro.url.pathname}`;
+const esUrl = `${siteUrl}${switchLangPath(Astro.url.pathname, 'es')}`;
+const enUrl = `${siteUrl}${switchLangPath(Astro.url.pathname, 'en')}`;
 ---
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/logo.ico" />
-    <link rel="canonical" href="https://patricia-portfolio.com" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={esUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={esUrl} />
     
     <!-- SEO Meta Tags -->
     <title>{title}</title>
-    <meta name="author" content="Patricia" />
+    <meta name="author" content="Patricia Moreno" />
     <meta name="keywords" content="creative director, stylist, moda, fashion, diseño, fotografía, editorial, styling, patricia moreno" />
     <meta name="robots" content="index, follow" />
-    <meta name="language" content="es" />
+    <meta name="language" content={lang} />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://patricia-portfolio.com" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'es_ES'} />
     <meta property="og:image" content="https://patricia-portfolio.com/og-image.jpg" />
-    <meta property="og:site_name" content="Patricia - Creative Director" />
+    <meta property="og:site_name" content="Patricia Moreno - Creative Director" />
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -48,7 +58,7 @@ const {
       {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "Patricia",
+        "name": "Patricia Moreno",
         "jobTitle": "Creative Director & Fashion Stylist",
         "url": "https://patricia-portfolio.com",
         "sameAs": [

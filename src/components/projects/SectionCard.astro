@@ -1,29 +1,33 @@
 ---
 // components/projects/SectionCard.astro - Tarjeta de sección con imagen de fondo
 import { Image } from 'astro:assets';
+import { useTranslations, localePath } from '../../i18n/ui.js';
 
 interface Props {
   section: {
     slug: string;
     title: string;
-    description: string;
+    description: { es: string; en: string };
     cover: any;
     images: any[];
   };
   index: number;
+  lang?: 'es' | 'en';
   class?: string;
 }
 
-const { section, index, class: className = '' } = Astro.props;
+const { section, index, lang = 'es', class: className = '' } = Astro.props;
+const t = useTranslations(lang);
+const description = section.description[lang];
 const number = String(index + 1).padStart(2, '0');
 const isEmpty = section.images.length === 0;
 ---
 
 <a
-  href={`/galeria/${section.slug}`}
+  href={localePath(lang, `/galeria/${section.slug}`)}
   class={`group relative block overflow-hidden ${className}`}
   style="background-color: #1A1A1A;"
-  aria-label={`${section.title}: ${section.description}`}
+  aria-label={`${section.title}: ${description}`}
 >
   {section.cover && (
     <Image
@@ -43,9 +47,9 @@ const isEmpty = section.images.length === 0;
     <div class="flex items-start justify-between text-xs uppercase" style="letter-spacing: 0.15em;">
       <span>{number}</span>
       {isEmpty ? (
-        <span class="px-3 py-1 border" style="border-color: rgba(255,255,255,0.5);">Próximamente</span>
+        <span class="px-3 py-1 border" style="border-color: rgba(255,255,255,0.5);">{t.comingSoon}</span>
       ) : (
-        <span style="opacity: 0.8;">{section.images.length} fotos</span>
+        <span style="opacity: 0.8;">{section.images.length} {t.photos}</span>
       )}
     </div>
 
@@ -54,10 +58,10 @@ const isEmpty = section.images.length === 0;
         {section.title}
       </h3>
       <p class="text-sm md:text-base leading-relaxed max-w-sm mb-6" style="color: rgba(255,255,255,0.85);">
-        {section.description}
+        {description}
       </p>
       <span class="inline-flex items-center gap-3 text-xs uppercase font-medium" style="letter-spacing: 0.15em;">
-        Ver galería
+        {t.viewGallery}
         <span class="block h-px w-8 transition-all duration-500 group-hover:w-14" style="background-color: #FFFFFF;"></span>
       </span>
     </div>
