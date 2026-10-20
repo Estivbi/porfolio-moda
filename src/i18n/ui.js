@@ -1,5 +1,4 @@
 // i18n/ui.js - Textos de la web en español e inglés
-// En la versión en español los títulos van en inglés y el cuerpo en español.
 
 export const languages = ['es', 'en'];
 
@@ -14,7 +13,7 @@ export function switchLangPath(currentPath, toLang) {
   return localePath(toLang, withoutLang);
 }
 
-const titles = {
+const titlesEn = {
   nav: {
     about: 'About',
     education: 'Education',
@@ -41,9 +40,37 @@ const titles = {
   comingSoon: 'Coming soon',
 };
 
+// Títulos de la versión en español (los de siempre)
+const titlesEs = {
+  nav: {
+    about: 'Presentación',
+    education: 'Educación',
+    skills: 'Habilidades',
+    projects: 'Proyectos',
+    contact: 'Contacto',
+  },
+  heroEyebrow: 'Estilista & Directora Creativa',
+  presentationEyebrow: 'Presentación',
+  presentationTitle: 'Sobre mí',
+  projectsEyebrow: 'Proyectos',
+  projectsTitle: 'Trabajos Destacados',
+  educationEyebrow: 'Educación',
+  educationTitle: 'Formación',
+  skillsEyebrow: 'Habilidades',
+  skillsTitle: 'Competencias Profesionales',
+  skillGroups: ['Creación & Dirección', 'Styling & Asesoría', 'Producción & Gestión', 'Áreas de Especialidad'],
+  contactEyebrow: 'Contacto',
+  contactTitle: 'Hablemos',
+  location: 'Ubicación',
+  followMe: 'Sígueme',
+  brand: 'Brand',
+  brandRole: 'Direction & Stylist',
+  comingSoon: 'Próximamente',
+};
+
 export const ui = {
   es: {
-    ...titles,
+    ...titlesEs,
     meta: {
       title: 'Patricia Moreno - Creative Director & Fashion Stylist',
       description: 'Portafolio de Patricia Moreno, Creative Director especializada en moda y diseño visual. Descubre mis proyectos, mi historia y mi visión creativa.',
@@ -85,7 +112,7 @@ export const ui = {
     galleryMetaSuffix: 'Portfolio de Patricia Moreno, estilista y directora creativa.',
   },
   en: {
-    ...titles,
+    ...titlesEn,
     meta: {
       title: 'Patricia Moreno - Creative Director & Fashion Stylist',
       description: 'Portfolio of Patricia Moreno, Creative Director specialised in fashion and visual design. Discover my projects, my story and my creative vision.',

@@ -1,7 +1,7 @@
 // sections.js - Secciones del portfolio y sus fotos
 // Para añadir fotos a una sección: importa la imagen y añádela a `images`.
 // `cover` es la imagen de fondo de la tarjeta en la home.
-// `title` va en inglés en las dos versiones; `description` y `credits` tienen texto en español (es) e inglés (en).
+// `title`, `description` y `credits` tienen texto en español (es) e inglés (en).
 import img2 from '../assets/2.jpeg';
 import img3 from '../assets/3.jpeg';
 import img4 from '../assets/4.jpeg';
@@ -67,7 +67,7 @@ const portadas = folderImages('portadas');
 const sections = [
   {
     slug: 'desfiles',
-    title: 'Runway',
+    title: { es: 'Desfiles', en: 'Runway' },
     description: {
       es: 'Estilismo y coordinación de looks para el desfile de Apolineo Studio en la Mercedes-Benz Fashion Week',
       en: 'Styling and look coordination for the Apolineo Studio show at Mercedes-Benz Fashion Week',
@@ -78,7 +78,7 @@ const sections = [
   },
   {
     slug: 'editoriales',
-    title: 'Editorials',
+    title: { es: 'Editoriales', en: 'Editorials' },
     description: {
       es: 'Proyecto editorial independiente con conceptos visuales creativos',
       en: 'Independent editorial project with creative visual concepts',
@@ -89,7 +89,7 @@ const sections = [
   },
   {
     slug: 'marcas',
-    title: 'Brands',
+    title: { es: 'Marcas', en: 'Brands' },
     description: {
       es: 'Dirección creativa y estilismo para campaña de Eien Diamonds',
       en: 'Creative direction and styling for an Eien Diamonds campaign',
@@ -100,7 +100,7 @@ const sections = [
   },
   {
     slug: 'artistas',
-    title: 'Artists',
+    title: { es: 'Artistas', en: 'Artists' },
     description: {
       es: 'Creación de looks que refuerzan la imagen y narrativa visual del artista',
       en: "Creating looks that strengthen the artist's image and visual narrative",
@@ -111,7 +111,7 @@ const sections = [
   },
   {
     slug: 'portadas',
-    title: 'Covers',
+    title: { es: 'Portadas', en: 'Covers' },
     description: {
       es: 'Creación y estilismo de portada para revista Victoria',
       en: 'Cover creation and styling for Victoria magazine',
@@ -123,7 +123,7 @@ const sections = [
   },
   {
     slug: 'test-modelos',
-    title: 'Model Tests',
+    title: { es: 'Test Modelos', en: 'Model Tests' },
     description: {
       es: 'Estilismo para sesión test de modelo, potenciando versatilidad',
       en: "Styling for model test shoots, highlighting the model's versatility",

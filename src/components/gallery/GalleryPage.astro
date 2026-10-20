@@ -15,6 +15,7 @@ interface Props {
 
 const { section, index, lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
+const title = section.title[lang];
 const description = section.description[lang];
 const credits = section.credits?.[lang];
 const number = `${String(index + 1).padStart(2, '0')} / ${String(sections.length).padStart(2, '0')}`;
@@ -28,7 +29,7 @@ const photos = await Promise.all(
       full: full.src,
       width: img.width,
       height: img.height,
-      alt: `${section.title} - ${t.photoWord} ${i + 1}`,
+      alt: `${title} - ${t.photoWord} ${i + 1}`,
     };
   })
 );
@@ -36,8 +37,8 @@ const photos = await Promise.all(
 
 <Layout
   lang={lang}
-  title={`${section.title} - Patricia Moreno`}
-  description={`${section.title}: ${description}. ${t.galleryMetaSuffix}`}
+  title={`${title} - Patricia Moreno`}
+  description={`${title}: ${description}. ${t.galleryMetaSuffix}`}
 >
   <Navbar lang={lang} />
 
@@ -50,7 +51,7 @@ const photos = await Promise.all(
         </a>
         <div class="flex items-baseline gap-4">
           <h1 class="font-serif font-light leading-none" style="color: #000000; font-size: clamp(2.25rem, 6vw, 4rem);">
-            {section.title}
+            {title}
           </h1>
           <span class="text-xs" style="color: #808080; letter-spacing: 0.1em;">{number}</span>
         </div>
@@ -68,7 +69,7 @@ const photos = await Promise.all(
 
     <!-- Mapa de fotos -->
     {photos.length > 0 ? (
-      <div id="map-viewport" class="map-viewport" aria-label={`${t.galleryPhotosOf} ${section.title}`}>
+      <div id="map-viewport" class="map-viewport" aria-label={`${t.galleryPhotosOf} ${title}`}>
         <div id="map-canvas" class="map-canvas">
           {photos.map((photo, i) => (
             <button
@@ -107,7 +108,7 @@ const photos = await Promise.all(
               style={`letter-spacing: 0.15em; color: ${s.slug === section.slug ? '#000000' : '#808080'};`}
               aria-current={s.slug === section.slug ? 'page' : undefined}
             >
-              {s.title}
+              {s.title[lang]}
             </a>
           </li>
         ))}
