@@ -1,40 +1,44 @@
 ---
 // components/layout/Navbar.astro - Navegación minimalista
+import { useTranslations, localePath, switchLangPath } from '../../i18n/ui.js';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const links = [
+  { href: '/#presentacion', label: t.nav.about },
+  { href: '/#educacion', label: t.nav.education },
+  { href: '/#habilidades', label: t.nav.skills },
+  { href: '/#proyectos', label: t.nav.projects },
+  { href: '/#contacto', label: t.nav.contact },
+].map((link) => ({ ...link, href: localePath(lang, link.href) }));
+const otherLang = lang === 'es' ? 'en' : 'es';
+const otherLangHref = switchLangPath(Astro.url.pathname, otherLang);
 ---
 
 <nav style="background-color: rgba(255, 255, 255, 0.95);" class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300" style="border-color: #E8E8E8;">
   <div class="container-moda px-6 md:px-12">
     <div class="flex items-center justify-between py-6">
       <!-- Logo/Nombre -->
-      <a href="/#inicio" class="font-serif text-2xl font-light tracking-tight" style="color: #000000;">
-        Patricia
+      <a href={localePath(lang, '/#inicio')} class="font-serif text-2xl font-light tracking-tight" style="color: #000000;">
+        Patricia Moreno
       </a>
 
       <!-- Navegación -->
       <ul class="hidden md:flex items-center space-x-12">
+        {links.map((link) => (
+          <li>
+            <a href={link.href} class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
+              {link.label}
+            </a>
+          </li>
+        ))}
         <li>
-          <a href="/#presentacion" class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Presentación
-          </a>
-        </li>
-        <li>
-          <a href="/#educacion" class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Educación
-          </a>
-        </li>
-        <li>
-          <a href="/#habilidades" class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Habilidades
-          </a>
-        </li>
-        <li>
-          <a href="/#proyectos" class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Proyectos
-          </a>
-        </li>
-        <li>
-          <a href="/#contacto" class="text-sm font-medium tracking-wide uppercase transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Contacto
+          <a href={otherLangHref} hreflang={otherLang} lang={otherLang} class="text-xs font-medium tracking-wide uppercase transition-colors" style="color: #808080;" aria-label={otherLang === 'en' ? 'English version' : 'Versión en español'}>
+            {otherLang.toUpperCase()}
           </a>
         </li>
       </ul>
@@ -52,29 +56,16 @@
   <div id="mobile-menu" style="background-color: #FFFFFF; border-color: #E8E8E8;" class="hidden md:hidden border-t">
     <div class="container-moda px-6 md:px-12 py-6">
       <ul class="space-y-4">
+        {links.map((link) => (
+          <li>
+            <a href={link.href} class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
+              {link.label}
+            </a>
+          </li>
+        ))}
         <li>
-          <a href="/#presentacion" class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Presentación
-          </a>
-        </li>
-        <li>
-          <a href="/#educacion" class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Educación
-          </a>
-        </li>
-        <li>
-          <a href="/#habilidades" class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Habilidades
-          </a>
-        </li>
-        <li>
-          <a href="/#proyectos" class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Proyectos
-          </a>
-        </li>
-        <li>
-          <a href="/#contacto" class="text-sm font-medium tracking-wide uppercase block transition-colors" style="color: #000000;" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#000000'">
-            Contacto
+          <a href={otherLangHref} hreflang={otherLang} lang={otherLang} class="text-sm font-medium tracking-wide uppercase block" style="color: #808080;">
+            {otherLang === 'en' ? 'English' : 'Español'}
           </a>
         </li>
       </ul>

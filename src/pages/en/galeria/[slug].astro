@@ -1,0 +1,16 @@
+---
+// src/pages/en/galeria/[slug].astro - Galería de cada sección (inglés)
+import GalleryPage from '../../../components/gallery/GalleryPage.astro';
+import sections from '../../../data/sections.js';
+
+export function getStaticPaths() {
+  return sections.map((section, index) => ({
+    params: { slug: section.slug },
+    props: { section, index },
+  }));
+}
+
+const { section, index } = Astro.props;
+---
+
+<GalleryPage section={section} index={index} lang="en" />

@@ -1,5 +1,13 @@
 ---
 // components/layout/Footer.astro - Pie de página elegante
+import { useTranslations } from '../../i18n/ui.js';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
 const currentYear = new Date().getFullYear();
 ---
 
@@ -8,15 +16,15 @@ const currentYear = new Date().getFullYear();
     <div class="flex justify-between gap-12 items-start mb-6">
       <!-- Acerca de -->
       <div>
-        <h3 class="font-serif text-xl mb-2" style="color: #FFFFFF;">Patricia</h3>
+        <h3 class="font-serif text-xl mb-2" style="color: #FFFFFF;">Patricia Moreno</h3>
         <p class="text-xs leading-relaxed opacity-80 max-w-xs">
-          Creative Director & Fashion Stylist especializada en crear experiencias visuales únicas que conectan marcas con audiencias.
+          {t.footerText}
         </p>
       </div>
 
       <!-- Redes sociales -->
       <div>
-        <h4 class="text-xs uppercase tracking-widest mb-3" style="color: #FFFFFF; letter-spacing: 0.1em;">Sígueme</h4>
+        <h4 class="text-xs uppercase tracking-widest mb-3" style="color: #FFFFFF; letter-spacing: 0.1em;">{t.followMe}</h4>
         <div class="flex space-x-3">
           <!-- Instagram -->
           <a 
@@ -60,8 +68,8 @@ const currentYear = new Date().getFullYear();
     
     <!-- Copyright -->
     <div class="flex flex-col md:flex-row justify-between items-center text-sm opacity-60">
-      <p>© {currentYear} Patricia. Todos los derechos reservados.</p>
-      <p class="mt-4 md:mt-0">Hecho con ❤️ para la moda</p>
+      <p>© {currentYear} Patricia Moreno. {t.rights}</p>
+      <p class="mt-4 md:mt-0">{t.madeWith}</p>
     </div>
   </div>
 </footer>

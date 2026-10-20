@@ -1,5 +1,13 @@
 ---
 // components/sections/About.astro - Sección educación y habilidades
+import { useTranslations } from '../../i18n/ui.js';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section id="educacion" style="background-color: #FFFFFF;" class="py-20 md:py-32">
@@ -7,19 +15,13 @@
     <!-- Educación -->
     <div class="mb-24">
       <div class="max-w-4xl">
-        <p class="text-xs uppercase tracking-widest mb-6" style="color: #808080; letter-spacing: 0.1em;">Educación</p>
+        <p class="text-xs uppercase tracking-widest mb-6" style="color: #808080; letter-spacing: 0.1em;">{t.educationEyebrow}</p>
         <h2 class="font-serif text-4xl md:text-5xl font-light mb-12 leading-tight" style="color: #000000;">
-          Formación
+          {t.educationTitle}
         </h2>
-        
+
         <div class="space-y-8" style="color: #808080; line-height: 1.8; font-size: 1.05rem; text-align: justify;">
-          <p>
-            Actualmente estudio <strong style="color: #000000;">Estilismo y Asesoría de Imagen</strong> en el IES Santa Engracia, una formación que me ha permitido adquirir una base sólida tanto teórica como práctica dentro del sector de la moda y la imagen.
-          </p>
-          
-          <p>
-            A lo largo de mis estudios he trabajado en el desarrollo de conceptos creativos, análisis de tendencias, construcción de estilismos y dirección estética, aplicando estos conocimientos en proyectos reales y ejercicios creativos. Esta formación me ha ayudado a entender la imagen como una herramienta de comunicación, reforzando mi capacidad para crear narrativas visuales coherentes y alineadas con una identidad concreta.
-          </p>
+          {t.education.map((paragraph) => <p set:html={paragraph} />)}
         </div>
       </div>
     </div>
@@ -27,51 +29,20 @@
     <!-- Habilidades -->
     <div id="habilidades" style="border-top: 1px solid #E8E8E8; padding-top: 32px;">
       <div class="max-w-4xl">
-        <p class="text-xs uppercase tracking-widest mb-6" style="color: #808080; letter-spacing: 0.1em;">Habilidades</p>
+        <p class="text-xs uppercase tracking-widest mb-6" style="color: #808080; letter-spacing: 0.1em;">{t.skillsEyebrow}</p>
         <h2 class="font-serif text-4xl md:text-5xl font-light mb-12 leading-tight" style="color: #000000;">
-          Competencias Profesionales
+          {t.skillsTitle}
         </h2>
-        
+
         <div class="grid md:grid-cols-2 gap-8">
-          <div>
-            <h4 class="font-serif text-lg mb-4" style="color: #000000;">Creación & Dirección</h4>
-            <ul class="space-y-3" style="color: #808080; line-height: 1.8;">
-              <li>• Desarrollo de conceptos creativos y storytelling visual</li>
-              <li>• Análisis de tendencias y referencias culturales</li>
-              <li>• Dirección creativa aplicada a moda y proyectos editoriales</li>
-              <li>• Construcción de identidad visual y narrativas coherentes</li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 class="font-serif text-lg mb-4" style="color: #000000;">Styling & Asesoría</h4>
-            <ul class="space-y-3" style="color: #808080; line-height: 1.8;">
-              <li>• Creación y planificación de estilismos</li>
-              <li>• Asesoría de imagen y construcción de looks</li>
-              <li>• Selección de vestuario, accesorios y paletas cromáticas</li>
-              <li>• Coordinación de looks para shootings y campañas</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="font-serif text-lg mb-4" style="color: #000000;">Producción & Gestión</h4>
-            <ul class="space-y-3" style="color: #808080; line-height: 1.8;">
-              <li>• Organización y preparación de sesiones fotográficas</li>
-              <li>• Trabajo con artistas, modelos y equipos creativos</li>
-              <li>• Coordinación de proyectos editoriales e independientes</li>
-              <li>• Capacidad de adaptación a distintos estilos y briefs creativos</li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="font-serif text-lg mb-4" style="color: #000000;">Áreas de Especialidad</h4>
-            <ul class="space-y-3" style="color: #808080; line-height: 1.8;">
-              <li>• Portadas de revista y editoriales de moda</li>
-              <li>• Campañas y proyectos de marca</li>
-              <li>• Styling para artistas emergentes</li>
-              <li>• Sesiones de test y portfolio de modelos</li>
-            </ul>
-          </div>
+          {t.skillGroups.map((group, i) => (
+            <div>
+              <h4 class="font-serif text-lg mb-4" style="color: #000000;">{group}</h4>
+              <ul class="space-y-3" style="color: #808080; line-height: 1.8;">
+                {t.skills[i].map((skill) => <li>• {skill}</li>)}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </div>
