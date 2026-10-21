@@ -98,10 +98,10 @@ const sections = [
     slug: 'marcas',
     title: { es: 'Marcas', en: 'Brands' },
     description: {
-      es: 'Dirección creativa y estilismo para campaña de Eien Diamonds',
-      en: 'Creative direction and styling for an Eien Diamonds campaign',
+      es: 'Dirección creativa y estilismo para campañas de marca',
+      en: 'Creative direction and styling for brand campaigns',
     },
-    credits: { es: '@eien.diamonds', en: '@eien.diamonds' },
+    credits: { es: 'Estilismo: Patricia Moreno', en: 'Styling: Patricia Moreno' },
     cover: img4,
     images: [img4, img2, img3, ...marcas]
   },
