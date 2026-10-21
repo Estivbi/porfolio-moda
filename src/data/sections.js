@@ -69,6 +69,7 @@ const artistas = folderImages('artistas');
 // Portadas: cada portada seguida de las fotos de su sesión, de la edición más reciente a la más antigua
 // (1 Nº 9, 5 Nº 7, 9 Nº 6, 12 Nº 4, 16 Nº 1 Primera Edición)
 const portadas = folderImages('portadas');
+const marcas = folderImages('marcas');
 
 const sections = [
   {
@@ -102,7 +103,7 @@ const sections = [
     },
     credits: { es: '@eien.diamonds', en: '@eien.diamonds' },
     cover: img4,
-    images: [img4, img2, img3]
+    images: [img4, img2, img3, ...marcas]
   },
   {
     slug: 'artistas',
