@@ -37,6 +37,12 @@ import editorial12 from '../assets/editoriales/12.jpg';
 import editorial14 from '../assets/editoriales/14.jpg';
 import editorial15 from '../assets/editoriales/15.jpg';
 import editorial16 from '../assets/editoriales/16.jpg';
+import editorial17 from '../assets/editoriales/17.jpg';
+import editorial18 from '../assets/editoriales/18.jpg';
+import editorial19 from '../assets/editoriales/19.jpg';
+import editorial20 from '../assets/editoriales/20.jpg';
+import editorial21 from '../assets/editoriales/21.jpg';
+import editorial22 from '../assets/editoriales/22.jpg';
 
 // Todas las fotos de las carpetas de src/assets, para las secciones que se rellenan solas
 const folderModules = import.meta.glob('../assets/*/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', { eager: true, import: 'default' });
@@ -63,6 +69,7 @@ const artistas = folderImages('artistas');
 // Portadas: cada portada seguida de las fotos de su sesión, de la edición más reciente a la más antigua
 // (1 Nº 9, 5 Nº 7, 9 Nº 6, 12 Nº 4, 16 Nº 1 Primera Edición)
 const portadas = folderImages('portadas');
+const marcas = folderImages('marcas');
 
 const sections = [
   {
@@ -85,18 +92,18 @@ const sections = [
     },
     credits: { es: 'Dirección: Patricia Moreno', en: 'Direction: Patricia Moreno' },
     cover: img17,
-    images: [img17, editorial1, img18, editorial2, editorial3, editorial7, editorial9, editorial8, editorial5, editorial6, editorial14, editorial4, editorial11, editorial10, editorial15, editorial12, editorial16]
+    images: [img17, editorial1, img18, editorial2, editorial3, editorial7, editorial9, editorial8, editorial5, editorial6, editorial14, editorial4, editorial11, editorial10, editorial15, editorial12, editorial16, editorial17, editorial18, editorial19, editorial20, editorial21, editorial22]
   },
   {
     slug: 'marcas',
     title: { es: 'Marcas', en: 'Brands' },
     description: {
-      es: 'Dirección creativa y estilismo para campaña de Eien Diamonds',
-      en: 'Creative direction and styling for an Eien Diamonds campaign',
+      es: 'Dirección creativa y estilismo para campañas de marca',
+      en: 'Creative direction and styling for brand campaigns',
     },
-    credits: { es: '@eien.diamonds', en: '@eien.diamonds' },
+    credits: { es: 'Estilismo: Patricia Moreno', en: 'Styling: Patricia Moreno' },
     cover: img4,
-    images: [img4, img2, img3]
+    images: [img4, img2, img3, ...marcas]
   },
   {
     slug: 'artistas',
